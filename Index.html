@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEA Dashboard — Clémence Reynaud</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#09090b;--surface:#111113;--surface2:#18181b;--surface3:#222226;
+  --accent:#c084fc;--accent2:#4ade80;--accent3:#f87171;--blue:#60a5fa;
+  --text:#fafafa;--text2:#a1a1aa;--border:#27272a;
+  --cac:#f59e0b;--dcam:#3b82f6;--sel:#10b981;--guard:#a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(192,132,252,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(59,130,246,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.app{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:24px 16px 64px;}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,52px);font-weight:300;line-height:1;}
+h1 em{font-style:italic;color:var(--accent);}
+.header-date{font-size:11px;color:var(--text2);}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.3);color:var(--accent);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 10px;border-radius:20px;margin-bottom:6px;}
+
+/* KPI */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;}
+@media(max-width:640px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--accent));}
+.kpi-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+.kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,30px);font-weight:300;line-height:1;}
+.kpi-sub{font-size:10px;color:var(--accent2);margin-top:4px;}
+
+/* NAV */
+.nav-section-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;padding-left:4px;}
+.nav{display:flex;gap:4px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;flex-wrap:wrap;}
+.nav-tab{flex:1;min-width:80px;padding:10px;text-align:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);cursor:pointer;border-radius:8px;transition:all .2s;border:none;background:transparent;font-family:'DM Mono',monospace;}
+.nav-tab.active{background:var(--surface3);color:var(--accent);border:1px solid rgba(192,132,252,.3);}
+.nav-tab:hover:not(.active){color:var(--text);}
+.nav.sim .nav-tab.active{color:#a78bfa;border-color:#a78bfa;}
+
+/* PAGES */
+.page{display:none;}.page.active{display:block;}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+.card-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+
+/* GRID */
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:700px){.main-grid{grid-template-columns:1fr;}}
+
+/* DONUT */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;}
+canvas{max-width:220px;max-height:220px;}
+
+/* LINES */
+.lines{display:flex;flex-direction:column;gap:8px;}
+.line-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:var(--surface2);transition:background .15s;}
+.line-row:hover{background:var(--surface3);}
+.line-color{width:3px;height:36px;border-radius:2px;flex-shrink:0;}
+.line-ticker{font-size:11px;font-weight:500;width:50px;}
+.line-name{font-size:10px;color:var(--text2);flex:1;}
+.line-val{font-family:'Cormorant Garamond',serif;font-size:18px;text-align:right;}
+.line-meta{font-size:10px;color:var(--text2);}
+.line-pv{font-size:11px;font-weight:500;}
+.pos{color:var(--accent2);}.neg{color:var(--accent3);}
+
+/* PV BARS */
+.pv-bars{display:flex;flex-direction:column;gap:10px;}
+.pv-row{display:flex;align-items:center;gap:10px;}
+.pv-ticker{width:55px;font-size:10px;color:var(--text2);}
+.pv-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.pv-fill{height:100%;border-radius:3px;}
+.pv-pct{font-size:11px;min-width:60px;text-align:right;}
+
+/* TRI */
+.tri-hero{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px 20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden;}
+.tri-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(192,132,252,.06) 0%,transparent 70%);pointer-events:none;}
+.tri-big{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,14vw,110px);font-weight:300;line-height:1;color:var(--accent);}
+.tri-sub{font-size:12px;color:var(--text2);margin-top:8px;}
+.tri-table{width:100%;border-collapse:collapse;font-size:11px;}
+.tri-table th{padding:10px 12px;text-align:left;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);}
+.tri-table td{padding:10px 12px;border-bottom:1px solid rgba(39,39,42,.4);}
+.tri-table tr:hover td{background:var(--surface2);}
+
+/* IC */
+.ic-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:600px){.ic-controls{grid-template-columns:1fr;}}
+.ic-control{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.ic-control label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:10px;}
+.ic-control input[type=range]{width:100%;accent-color:var(--accent);margin-bottom:6px;}
+.ic-val{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--accent);}
+.ic-val span{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;}
+.ic-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;}
+@media(min-width:600px){.ic-kpis{grid-template-columns:repeat(4,1fr);}}
+.ic-kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative;overflow:hidden;}
+.ic-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--accent));}
+.ic-kpi-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;}
+.ic-kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3vw,24px);line-height:1;}
+.ic-kpi-sub{font-size:10px;color:var(--accent2);margin-top:4px;}
+.ic-chart-wrap{width:100%;height:280px;}
+.ic-table{width:100%;border-collapse:collapse;font-size:11px;}
+.ic-table th{padding:8px 12px;text-align:left;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);}
+.ic-table td{padding:9px 12px;border-bottom:1px solid rgba(39,39,42,.4);}
+.ic-table tr:hover td{background:var(--surface2);}
+.ic-table .yr-milestone td{color:var(--accent);}
+
+/* RESTE */
+.ic-doubling{background:var(--surface2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6;}
+.ic-doubling strong{color:var(--accent);}
+
+.note{font-size:11px;color:var(--text2);line-height:1.7;padding-left:12px;border-left:2px solid var(--border);margin-top:24px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">PEA · Clémence Reynaud</div>
+      <h1>Portfolio <em>Dashboard</em></h1>
+    </div>
+    <div class="header-right">
+      <div class="badge">✨ Ouvert avril 2025</div>
+      <div class="header-date">Dernière MàJ : 8 juin 2026</div>
+    </div>
+  </div>
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip">
+    <div class="kpi-card" style="--kc:#3b82f6">
+      <div class="kpi-label">Capital investi</div>
+      <div class="kpi-val">5 200 €</div>
+      <div class="kpi-sub">depuis avril 2025</div>
+    </div>
+    <div class="kpi-card" style="--kc:#4ade80">
+      <div class="kpi-label">Valeur PEA</div>
+      <div class="kpi-val">5 551 €</div>
+      <div class="kpi-sub">+351 € · +6,8%</div>
+    </div>
+    <div class="kpi-card" style="--kc:#c084fc">
+      <div class="kpi-label">TRI annualisé</div>
+      <div class="kpi-val">12,65 %</div>
+      <div class="kpi-sub">sur 14 mois</div>
+    </div>
+    <div class="kpi-card" style="--kc:#f59e0b">
+      <div class="kpi-label">PV latentes</div>
+      <div class="kpi-val">+107 €</div>
+      <div class="kpi-sub">sur titres actuels</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div style="margin-bottom:8px">
+    <div class="nav-section-label">Analyse</div>
+    <div class="nav" style="margin-bottom:0">
+      <button class="nav-tab active" onclick="showPage('portfolio',this)">📊 Portefeuille</button>
+      <button class="nav-tab" onclick="showPage('tri',this)">📐 TRI</button>
+    </div>
+  </div>
+  <div style="margin-bottom:28px">
+    <div class="nav-section-label">Simulateurs</div>
+    <div class="nav sim" style="margin-bottom:0;border-color:rgba(192,132,252,.2)">
+      <button class="nav-tab" onclick="showPage('compound',this)">🔄 Intérêts composés</button>
+    </div>
+  </div>
+
+  <!-- PAGE PORTFOLIO -->
+  <div class="page active" id="page-portfolio">
+    <div class="main-grid">
+      <div class="card">
+        <div class="card-title">Répartition</div>
+        <div class="donut-wrap"><canvas id="mainDonut"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Détail des lignes</div>
+        <div class="lines" id="linesTable"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Plus-values latentes</div>
+      <div class="pv-bars" id="pvBars"></div>
+    </div>
+  </div>
+
+  <!-- PAGE TRI -->
+  <div class="page" id="page-tri">
+    <div class="tri-hero">
+      <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">TRI · Depuis avril 2025</div>
+      <div class="tri-big">12,65%</div>
+      <div class="tri-sub">par an · sur <strong>14 mois</strong> · ~371 €/mois versés</div>
+    </div>
+
+    <div class="main-grid">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title">Méthode de calcul</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8">
+          Le TRI est calculé via <span style="color:var(--accent)">Newton-Raphson</span> sur les flux mensuels.<br><br>
+          Flux : <span style="color:var(--accent)">-~371 €/mois</span> × 14 mois → <span style="color:var(--accent)">+5 551 €</span><br><br>
+          C'est la mesure la plus juste pour un investisseur en <strong>DCA</strong>.
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title">Comparaison (même période)</div>
+        <div class="pv-bars">
+          <div class="pv-row"><div class="pv-ticker">Ton PEA</div><div class="pv-track"><div class="pv-fill" style="width:100%;background:var(--accent)"></div></div><div class="pv-pct" style="color:var(--accent)">12,65%</div></div>
+          <div class="pv-row"><div class="pv-ticker">MSCI W.</div><div class="pv-track"><div class="pv-fill" style="width:83%;background:#3b82f6"></div></div><div class="pv-pct" style="color:#3b82f6">~10,5%</div></div>
+          <div class="pv-row"><div class="pv-ticker">CAC 40</div><div class="pv-track"><div class="pv-fill" style="width:62%;background:#f59e0b"></div></div><div class="pv-pct" style="color:#f59e0b">~7,8%</div></div>
+          <div class="pv-row"><div class="pv-ticker">Livret A</div><div class="pv-track"><div class="pv-fill" style="width:13%;background:#6b7280"></div></div><div class="pv-pct" style="color:#6b7280">~1,6%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE INTÉRÊTS COMPOSÉS -->
+  <div class="page" id="page-compound">
+
+    <div class="ic-controls">
+      <div class="ic-control">
+        <label>Capital de départ (€)</label>
+        <input type="range" id="icCapital" min="0" max="50000" step="100" value="5551" oninput="updateIC()">
+        <div class="ic-val" id="icCapitalVal">5 551 <span>€</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Rendement annuel (%)</label>
+        <input type="range" id="icRate" min="1" max="20" step="0.5" value="10" oninput="updateIC()">
+        <div class="ic-val" id="icRateVal">10 <span>%</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Versement mensuel (€)</label>
+        <input type="range" id="icMonthly" min="0" max="2000" step="50" value="400" oninput="updateIC()">
+        <div class="ic-val" id="icMonthlyVal">400 <span>€/mois</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Horizon (années)</label>
+        <input type="range" id="icYears" min="1" max="30" step="1" value="10" oninput="updateIC()">
+        <div class="ic-val" id="icYearsVal">10 <span>ans</span></div>
+      </div>
+    </div>
+
+    <!-- Scénarios -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+      <button onclick="setScenario(4,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">📉 Pessimiste 4%</button>
+      <button onclick="setScenario(7,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">📊 Réaliste 7%</button>
+      <button onclick="setScenario(10,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--accent);background:var(--surface2);color:var(--accent);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">🎯 Mon TRI 12,65%</button>
+      <button onclick="setScenario(12,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">🚀 Optimiste 15%</button>
+    </div>
+
+    <div class="ic-kpis">
+      <div class="ic-kpi" style="--kc:#c084fc"><div class="ic-kpi-label">Valeur finale</div><div class="ic-kpi-val" id="icFinal">—</div><div class="ic-kpi-sub" id="icFinalSub">—</div></div>
+      <div class="ic-kpi" style="--kc:#4ade80"><div class="ic-kpi-label">Gain total</div><div class="ic-kpi-val" id="icGain">—</div><div class="ic-kpi-sub" id="icGainSub">—</div></div>
+      <div class="ic-kpi" style="--kc:#60a5fa"><div class="ic-kpi-label">Capital investi total</div><div class="ic-kpi-val" id="icTotalInvested">—</div><div class="ic-kpi-sub">départ + versements</div></div>
+      <div class="ic-kpi" style="--kc:#a78bfa"><div class="ic-kpi-label">Part intérêts purs</div><div class="ic-kpi-val" id="icInterest">—</div><div class="ic-kpi-sub" id="icInterestSub">—</div></div>
+    </div>
+
+    <div class="ic-doubling" id="icDoubling"></div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Projection de la valeur</div>
+      <canvas id="icChart" class="ic-chart-wrap"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Détail année par année</div>
+      <div style="overflow-x:auto">
+        <table class="ic-table">
+          <thead><tr><th>Année</th><th>Capital investi</th><th>Valeur</th><th>Intérêts cumulés</th><th>Gain annuel</th><th>Performance</th></tr></thead>
+          <tbody id="icTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">PEA Clémence Reynaud · Capital investi : 5 200 € · TRI : 12,65%/an · Ouvert avril 2025 · 4 lignes actives</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+
+const COLORS = { CAC:'#f59e0b', DCAM:'#3b82f6', SEL:'#10b981', GUARD:'#a78bfa' };
+
+const currentData = [
+  {ticker:'DCAM', name:'MSCI World Amundi',       parts:360, pru:5.72,  value:2144},
+  {ticker:'CAC',  name:'Amundi CAC 40 ETF Dist',  parts:21,  pru:78.51, value:1734},
+  {ticker:'SEL',  name:'Stoxx Europe Select Div', parts:44,  pru:23.32, value:1018},
+  {ticker:'GUARD',name:'BNP Europe Defense',      parts:60,  pru:11.61, value:640},
+];
+
+const fmt = n => new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
+
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── PORTFOLIO ──
+const total = currentData.reduce((s,d)=>s+d.value,0);
+
+new Chart(document.getElementById('mainDonut'),{
+  type:'doughnut',
+  data:{labels:currentData.map(d=>d.ticker),datasets:[{data:currentData.map(d=>d.value),backgroundColor:currentData.map(d=>COLORS[d.ticker]),borderColor:'#111113',borderWidth:3,hoverOffset:12}]},
+  options:{responsive:true,cutout:'62%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#18181b',titleFont:{family:'DM Mono',size:11},bodyFont:{family:'DM Mono',size:10},callbacks:{label:ctx=>{const d=currentData[ctx.dataIndex];const pct=(d.value/total*100).toFixed(1);const gp=((d.value-d.pru*d.parts)/(d.pru*d.parts)*100).toFixed(1);return[` ${fmt(d.value)}`,` ${pct}% du PEA`,` PV : ${gp>0?'+':''}${gp}%`];}}}}}
+});
+
+const lt=document.getElementById('linesTable');
+currentData.forEach(d=>{
+  const pct=(d.value/total*100).toFixed(1);
+  const inv=d.pru*d.parts;
+  const gp=((d.value-inv)/inv*100).toFixed(1);
+  const isPos=parseFloat(gp)>=0;
+  const el=document.createElement('div');
+  el.className='line-row';
+  el.innerHTML=`<div class="line-color" style="background:${COLORS[d.ticker]}"></div><div><div class="line-ticker">${d.ticker}</div><div style="font-size:10px;color:var(--text2)">${d.parts} parts</div></div><div style="flex:1;font-size:10px;color:var(--text2)">${d.name}</div><div style="text-align:right"><div class="line-val">${fmt(d.value)}</div><div class="line-meta">${pct}% · PRU ${d.pru}€</div><div class="line-pv ${isPos?'pos':'neg'}">${isPos?'+':''}${gp}%</div></div>`;
+  lt.appendChild(el);
+});
+
+const pvB=document.getElementById('pvBars');
+const maxP=Math.max(...currentData.map(d=>Math.abs(((d.value-d.pru*d.parts)/(d.pru*d.parts))*100)));
+currentData.forEach(d=>{
+  const gp=((d.value-d.pru*d.parts)/(d.pru*d.parts)*100).toFixed(1);
+  const isPos=parseFloat(gp)>=0;
+  const bw=Math.abs(parseFloat(gp))/maxP*100;
+  const el=document.createElement('div');
+  el.className='pv-row';
+  el.innerHTML=`<div class="pv-ticker">${d.ticker}</div><div class="pv-track"><div class="pv-fill" style="width:${bw}%;background:${isPos?'var(--accent2)':'var(--accent3)'}"></div></div><div class="pv-pct ${isPos?'pos':'neg'}">${isPos?'+':''}${gp}%</div>`;
+  pvB.appendChild(el);
+});
+
+// ── INTÉRÊTS COMPOSÉS ──
+let icChart = null;
+
+function setScenario(rate, el) {
+  document.getElementById('icRate').value = rate;
+  document.getElementById('icRateVal').innerHTML = rate + ' <span>%</span>';
+  updateIC();
+}
+
+function updateIC() {
+  const capital = parseFloat(document.getElementById('icCapital').value);
+  const rate = parseFloat(document.getElementById('icRate').value);
+  const monthly = parseFloat(document.getElementById('icMonthly').value);
+  const years = parseInt(document.getElementById('icYears').value);
+
+  document.getElementById('icCapitalVal').innerHTML = new Intl.NumberFormat('fr-FR').format(capital)+' <span>€</span>';
+  document.getElementById('icRateVal').innerHTML = rate+' <span>%</span>';
+  document.getElementById('icMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(monthly)+' <span>€/mois</span>';
+  document.getElementById('icYearsVal').innerHTML = years+' <span>ans</span>';
+
+  const mr = rate/100/12;
+  let portfolio = capital, totalInvested = capital, prev = capital;
+  const yearlyData = [], labels = [], portVals = [], invVals = [], intVals = [];
+
+  for(let y=1;y<=years;y++){
+    let yearInt=0;
+    for(let m=0;m<12;m++){const i=portfolio*mr;yearInt+=i;portfolio+=i+monthly;totalInvested+=monthly;}
+    const gain=portfolio-totalInvested;
+    yearlyData.push({year:y,invested:totalInvested,portfolio,interest:gain,yearGain:portfolio-prev-monthly*12,perf:gain/totalInvested*100});
+    labels.push((2026+y).toString());
+    portVals.push(Math.round(portfolio));
+    invVals.push(Math.round(totalInvested));
+    intVals.push(Math.round(gain));
+    prev=portfolio;
+  }
+
+  const last=yearlyData[yearlyData.length-1];
+  const gain=last.portfolio-last.invested;
+  document.getElementById('icFinal').textContent=fmt(Math.round(last.portfolio));
+  document.getElementById('icFinalSub').textContent='dans '+years+' ans';
+  document.getElementById('icGain').textContent='+'+fmt(Math.round(gain));
+  document.getElementById('icGainSub').textContent='+'+last.perf.toFixed(1)+'% sur capital';
+  document.getElementById('icTotalInvested').textContent=fmt(Math.round(last.invested));
+  document.getElementById('icInterest').textContent=fmt(Math.round(gain));
+  document.getElementById('icInterestSub').textContent=(gain/last.portfolio*100).toFixed(1)+'% de la valeur finale';
+  document.getElementById('icDoubling').innerHTML=`📐 <strong>Règle des 72</strong> : à <strong>${rate}%/an</strong>, ton capital double tous les <strong>${(72/rate).toFixed(1)} ans</strong>. Tes 5 551 € deviendront <strong>~${fmt(Math.round(5551*2))}</strong> vers <strong>${Math.round(2026+72/rate)}</strong>.`;
+
+  if(icChart) icChart.destroy();
+  icChart=new Chart(document.getElementById('icChart'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Valeur totale',data:portVals,borderColor:'#c084fc',backgroundColor:'rgba(192,132,252,.1)',fill:true,tension:.4,borderWidth:3,pointRadius:4,pointHoverRadius:7,pointBackgroundColor:'#c084fc',pointBorderColor:'#09090b',pointBorderWidth:2},
+      {label:'Capital investi',data:invVals,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.05)',fill:true,tension:.4,borderWidth:2,borderDash:[6,4],pointRadius:3,pointBackgroundColor:'#3b82f6'},
+      {label:'Intérêts composés',data:intVals,borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,.08)',fill:true,tension:.4,borderWidth:2,pointRadius:3,pointBackgroundColor:'#4ade80'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#e2e2e2',font:{family:'DM Mono',size:11},boxWidth:12,usePointStyle:true}},tooltip:{backgroundColor:'#18181b',borderColor:'#27272a',borderWidth:1,titleColor:'#fafafa',bodyColor:'#a1a1aa',titleFont:{family:'DM Mono',size:12},bodyFont:{family:'DM Mono',size:11},padding:12,callbacks:{label:ctx=>` ${ctx.dataset.label} : ${fmt(ctx.raw)}`}}},scales:{x:{grid:{color:'rgba(39,39,42,.4)'},ticks:{color:'#d4d4d8',font:{family:'DM Mono',size:11}}},y:{grid:{color:'rgba(39,39,42,.4)'},ticks:{color:'#d4d4d8',font:{family:'DM Mono',size:11},padding:8,callback:v=>new Intl.NumberFormat('fr-FR',{notation:'compact'}).format(v)+'€'}}}}
+  });
+
+  const tb=document.getElementById('icTableBody');
+  tb.innerHTML='';
+  yearlyData.forEach((d,i)=>{
+    const isMilestone=[5,10,15,20].includes(d.year);
+    const tr=document.createElement('tr');
+    if(isMilestone) tr.className='yr-milestone';
+    tr.innerHTML=`<td>${2026+d.year}</td><td>${fmt(Math.round(d.invested))}</td><td class="pos">${fmt(Math.round(d.portfolio))}</td><td class="pos">+${fmt(Math.round(d.interest))}</td><td class="pos">+${fmt(Math.round(d.yearGain))}</td><td class="pos">+${d.perf.toFixed(1)}%</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+updateIC();
+</script>
+</body>
+</html>
