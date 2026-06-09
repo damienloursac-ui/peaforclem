@@ -229,13 +229,13 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
   <div class="kpi-strip">
     <div class="kpi-card" style="--kc:#3b82f6">
       <div class="kpi-label">Capital investi</div>
-      <div class="kpi-val">124 000 €</div>
-      <div class="kpi-sub">versements progressifs · 9 ans</div>
+      <div class="kpi-val">5 400 €</div>
+      <div class="kpi-sub">depuis avril 2025</div>
     </div>
     <div class="kpi-card" style="--kc:#4ade80">
       <div class="kpi-label">Valeur PEA</div>
-      <div class="kpi-val">188 501 €</div>
-      <div class="kpi-sub">+64 501 € de gain · <strong>+52,0%</strong></div>
+      <div class="kpi-val">5 551 €</div>
+      <div class="kpi-sub">+151 € de gain · <strong>+2,8%</strong></div>
     </div>
     <div class="kpi-card" style="--kc:#e8c547">
       <div class="kpi-label">TRI annualisé</div>
@@ -244,8 +244,8 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
     </div>
     <div class="kpi-card" style="--kc:#a78bfa">
       <div class="kpi-label">Dividendes 2026</div>
-      <div class="kpi-val">~3 986 €</div>
-      <div class="kpi-sub">dont 3 801 € en déc.</div>
+      <div class="kpi-val">~115 €</div>
+      <div class="kpi-sub">estimés 2026</div>
     </div>
   </div>
 
@@ -293,7 +293,7 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
     <div class="tri-hero">
       <div class="tri-label">Taux de Rendement Interne · Depuis avril 2017</div>
       <div class="tri-big">9,12%</div>
-      <div class="tri-sub">par an · sur <strong>9 ans</strong> · versements de <strong>1 000 €/mois</strong></div>
+      <div class="tri-sub">par an · sur <strong>14 mois</strong> · ~386 €/mois versés</div>
     </div>
 
     <div class="tri-method">
@@ -309,7 +309,7 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
         <div class="method-title">Pourquoi le TRI plutôt que la performance brute ?</div>
         <div class="method-formula">
           La performance brute (+60,8%) ne tient pas compte du <strong>timing des versements</strong>.<br><br>
-          Les premiers 1 000 € versés en 2017 ont travaillé <strong>9 ans</strong>, mais les derniers versements seulement quelques mois.<br><br>
+          Les premiers versements en avril 2025 ont travaillé plus longtemps que les derniers, sur <strong>14 mois</strong>.<br><br>
           Le TRI est la mesure <strong>la plus juste</strong> pour un investisseur en DCA.
         </div>
       </div>
@@ -484,7 +484,7 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px 24px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center">
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,197,71,.06) 0%,transparent 70%);pointer-events:none"></div>
       <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">Objectif de versement · PEA</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent)" id="resteHero">26 000 €</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent)" id="resteHero">9 600 €</div>
       <div style="font-size:13px;color:var(--text2);margin-top:8px">restent à investir pour atteindre l'objectif</div>
     </div>
 
@@ -504,13 +504,13 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
     <div class="ic-kpis" style="margin-bottom:16px">
       <div class="ic-kpi" style="--kc:#e8c547">
         <div class="ic-kpi-label">Déjà investi</div>
-        <div class="ic-kpi-val">124 000 €</div>
-        <div class="ic-kpi-sub" id="resteDejaSubPct">82,7% de l'objectif</div>
+        <div class="ic-kpi-val">5 400 €</div>
+        <div class="ic-kpi-sub" id="resteDejaSubPct">36% de l'objectif</div>
       </div>
       <div class="ic-kpi" style="--kc:#4ade80">
         <div class="ic-kpi-label">Reste à investir</div>
-        <div class="ic-kpi-val" id="resteKpiReste">26 000 €</div>
-        <div class="ic-kpi-sub" id="resteKpiRestePct">17,3% restants</div>
+        <div class="ic-kpi-val" id="resteKpiReste">9 600 €</div>
+        <div class="ic-kpi-sub" id="resteKpiRestePct">64% restants</div>
       </div>
       <div class="ic-kpi" style="--kc:#60a5fa">
         <div class="ic-kpi-label">Temps estimé</div>
@@ -529,16 +529,16 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
       <div class="card-title">Progression vers l'objectif</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:10px">
         <span>0 €</span>
-        <span id="resteProgLabel">124 000 € / 150 000 €</span>
-        <span id="resteObjectifLabel">150 000 €</span>
+        <span id="resteProgLabel">5 400 € / 15 000 €</span>
+        <span id="resteObjectifLabel">15 000 €</span>
       </div>
       <div style="height:16px;background:var(--border);border-radius:8px;overflow:hidden;position:relative">
-        <div id="resteBar" style="height:100%;background:linear-gradient(90deg,#3b82f6,#e8c547);border-radius:8px;transition:width .6s ease;width:82.7%"></div>
+        <div id="resteBar" style="height:100%;background:linear-gradient(90deg,#3b82f6,#c084fc);border-radius:8px;transition:width .6s ease;width:36%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);margin-top:6px">
         <span style="color:var(--accent2)">✅ Déjà investi : 124 000 €</span>
-        <span style="color:var(--accent)" id="resteBarPct">82,7%</span>
-        <span style="color:var(--text2)" id="resteBarRemain">Reste : 26 000 €</span>
+        <span style="color:var(--accent)" id="resteBarPct">36%</span>
+        <span style="color:var(--text2)" id="resteBarRemain">Reste : 9 600 €</span>
       </div>
     </div>
 
