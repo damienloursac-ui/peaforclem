@@ -484,7 +484,7 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px 24px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center">
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,197,71,.06) 0%,transparent 70%);pointer-events:none"></div>
       <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">Objectif de versement · PEA</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent)" id="resteHero">9 600 €</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent)" id="resteHero">144 600 €</div>
       <div style="font-size:13px;color:var(--text2);margin-top:8px">restent à investir pour atteindre l'objectif</div>
     </div>
 
@@ -505,12 +505,12 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
       <div class="ic-kpi" style="--kc:#e8c547">
         <div class="ic-kpi-label">Déjà investi</div>
         <div class="ic-kpi-val">5 400 €</div>
-        <div class="ic-kpi-sub" id="resteDejaSubPct">36% de l'objectif</div>
+        <div class="ic-kpi-sub" id="resteDejaSubPct">3,6% de l'objectif</div>
       </div>
       <div class="ic-kpi" style="--kc:#4ade80">
         <div class="ic-kpi-label">Reste à investir</div>
-        <div class="ic-kpi-val" id="resteKpiReste">9 600 €</div>
-        <div class="ic-kpi-sub" id="resteKpiRestePct">64% restants</div>
+        <div class="ic-kpi-val" id="resteKpiReste">144 600 €</div>
+        <div class="ic-kpi-sub" id="resteKpiRestePct">96,4% restants</div>
       </div>
       <div class="ic-kpi" style="--kc:#60a5fa">
         <div class="ic-kpi-label">Temps estimé</div>
@@ -529,16 +529,16 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
       <div class="card-title">Progression vers l'objectif</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:10px">
         <span>0 €</span>
-        <span id="resteProgLabel">5 400 € / 15 000 €</span>
-        <span id="resteObjectifLabel">15 000 €</span>
+        <span id="resteProgLabel">5 400 € / 150 000 €</span>
+        <span id="resteObjectifLabel">150 000 €</span>
       </div>
       <div style="height:16px;background:var(--border);border-radius:8px;overflow:hidden;position:relative">
-        <div id="resteBar" style="height:100%;background:linear-gradient(90deg,#3b82f6,#c084fc);border-radius:8px;transition:width .6s ease;width:36%"></div>
+        <div id="resteBar" style="height:100%;background:linear-gradient(90deg,#3b82f6,#c084fc);border-radius:8px;transition:width .6s ease;width:3.6%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);margin-top:6px">
         <span style="color:var(--accent2)">✅ Déjà investi : 124 000 €</span>
-        <span style="color:var(--accent)" id="resteBarPct">36%</span>
-        <span style="color:var(--text2)" id="resteBarRemain">Reste : 9 600 €</span>
+        <span style="color:var(--accent)" id="resteBarPct">3,6%</span>
+        <span style="color:var(--text2)" id="resteBarRemain">Reste : 144 600 €</span>
       </div>
     </div>
 
@@ -779,7 +779,7 @@ input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
 
   </div>
 
-  <div class="note">Capital investi : 5 400 € · TRI : 5,20%/an · PV latentes : 107 € · Données Bourse Direct 8 juin 2026 · PEA Clémence Reynaud</div>
+  <div class="note">Capital investi : 5 400 € · TRI : 5,20%/an · PV latentes : 107 € · Objectif versement : 150 000 € · PEA Clémence Reynaud · PEA Clémence Reynaud</div>
 
   <!-- PAGE SIMULATEUR DIVIDENDES -->
   <div class="page" id="page-divsim">
@@ -1017,11 +1017,7 @@ const currentData=[
 ];
 
 const triData=[ // Clemence - 14 mois
-  {yr:1,date:'Avr 2026',invested:4629,value:4753,gain:124},
-  {yr:2,date:'Avr 2027',invested:9258,value:10294,gain:1036},
-  {yr:3,date:'Avr 2028',invested:13886,value:16773,gain:2887},
-  {yr:4,date:'Avr 2029',invested:18515,value:24318,gain:5803},
-  {yr:5,date:'Avr 2030',invested:23144,value:33077,gain:9933},
+  {yr:1,date:'Juin 2026',invested:5400,value:5551,gain:151},
 ];
 
 const snapshots=[
@@ -1032,11 +1028,11 @@ const snapshots=[
 ];
 
 const dividends=[
-  {date:'Déc 2026', source:'SEL — Versement annuel',amount:59,confirmed:false},
-  {date:'Déc 2026', source:'CAC 40 ETF — Versement annuel',amount:48,confirmed:false},
+  {date:'Déc 2026', source:'SEL — Versement annuel (44 parts × ~1,33€)',amount:59,confirmed:false},
+  {date:'Déc 2026', source:'CAC 40 ETF — Versement annuel (21 parts × ~2,32€)',amount:49,confirmed:false},
 ];
 
-const divMonths={Jan:0,Fév:0,Mar:0,Avr:0,Mai:0,Jun:0,Jul:0,Aoû:0,Sep:0,Oct:0,Nov:0,Déc:107};
+const divMonths={Jan:0,Fév:0,Mar:0,Avr:0,Mai:0,Jun:0,Jul:0,Aoû:0,Sep:0,Oct:0,Nov:0,Déc:108};
 
 const fmt=n=>new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
 const fmtD=n=>(n>=0?'+':'')+new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
@@ -1487,7 +1483,7 @@ function updateTargetVals() {
   const annualTarget = monthly * 12;
   const capitalNeeded = annualTarget / (yld / 100);
   const currentPEA = 5551;
-  const currentDiv = currentPEA * 0.0215; // ~2.15% rendement actuel
+  const currentDiv = currentPEA * 0.0195; // ~1.95% rendement actuel (SEL+CAC)
   const gap = Math.max(0, capitalNeeded - currentPEA);
 
   document.getElementById('dsTargetCapNow').textContent = fmt(Math.round(capitalNeeded));
@@ -1643,7 +1639,7 @@ const TRI_MENSUEL = Math.pow(1 + 0.0912, 1/12) - 1;
 let resteChart = null;
 
 function updateReste() {
-  const objectif = 15000;
+  const objectif = 150000;
   const monthly = parseFloat(document.getElementById('resteMonthly').value);
   const reste = Math.max(0, objectif - INVESTI);
   const pctFait = (INVESTI / objectif * 100).toFixed(1);
