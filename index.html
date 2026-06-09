@@ -10,33 +10,35 @@
   --bg:#09090b;--surface:#111113;--surface2:#18181b;--surface3:#222226;
   --accent:#c084fc;--accent2:#4ade80;--accent3:#f87171;--blue:#60a5fa;
   --text:#fafafa;--text2:#a1a1aa;--border:#27272a;
-  --cac:#f59e0b;--dcam:#3b82f6;--sel:#10b981;--guard:#a78bfa;
+  --sel:#f59e0b;--dcam:#3b82f6;--asml:#10b981;--guard:#a78bfa;--paeem:#6b7280;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(192,132,252,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(59,130,246,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
-.app{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:24px 16px 64px;}
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(232,197,71,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(59,130,246,.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.app{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:24px 16px 64px;}
 
 /* HEADER */
 .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);}
 .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,52px);font-weight:300;line-height:1;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,6vw,56px);font-weight:300;line-height:1;letter-spacing:-.02em;}
 h1 em{font-style:italic;color:var(--accent);}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:var(--accent2);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 10px;border-radius:20px;margin-bottom:6px;}
+.live-dot{width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .header-date{font-size:11px;color:var(--text2);}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.3);color:var(--accent);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 10px;border-radius:20px;margin-bottom:6px;}
 
-/* KPI */
+/* KPI STRIP */
 .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;}
 @media(max-width:640px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
 .kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;}
 .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--accent));}
 .kpi-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
-.kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,30px);font-weight:300;line-height:1;}
+.kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,32px);font-weight:300;line-height:1;}
 .kpi-sub{font-size:10px;color:var(--accent2);margin-top:4px;}
+.kpi-sub.highlight{color:var(--accent);font-weight:500;}
 
 /* NAV */
-.nav-section-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;padding-left:4px;}
-.nav{display:flex;gap:4px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;flex-wrap:wrap;}
+.nav{display:flex;gap:4px;margin-bottom:28px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;flex-wrap:wrap;}
 .nav-tab{flex:1;min-width:80px;padding:10px;text-align:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);cursor:pointer;border-radius:8px;transition:all .2s;border:none;background:transparent;font-family:'DM Mono',monospace;}
 .nav-tab.active{background:var(--surface3);color:var(--accent);border:1px solid rgba(192,132,252,.3);}
 .nav-tab:hover:not(.active){color:var(--text);}
@@ -64,7 +66,8 @@ canvas{max-width:220px;max-height:220px;}
 .line-color{width:3px;height:36px;border-radius:2px;flex-shrink:0;}
 .line-ticker{font-size:11px;font-weight:500;width:50px;}
 .line-name{font-size:10px;color:var(--text2);flex:1;}
-.line-val{font-family:'Cormorant Garamond',serif;font-size:18px;text-align:right;}
+.line-right{text-align:right;}
+.line-val{font-family:'Cormorant Garamond',serif;font-size:18px;}
 .line-meta{font-size:10px;color:var(--text2);}
 .line-pv{font-size:11px;font-weight:500;}
 .pos{color:var(--accent2);}.neg{color:var(--accent3);}
@@ -72,44 +75,137 @@ canvas{max-width:220px;max-height:220px;}
 /* PV BARS */
 .pv-bars{display:flex;flex-direction:column;gap:10px;}
 .pv-row{display:flex;align-items:center;gap:10px;}
-.pv-ticker{width:55px;font-size:10px;color:var(--text2);}
+.pv-ticker{width:55px;font-size:10px;color:var(--text2);letter-spacing:.1em;}
 .pv-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
-.pv-fill{height:100%;border-radius:3px;}
+.pv-fill{height:100%;border-radius:3px;transition:width .6s ease;}
 .pv-pct{font-size:11px;min-width:60px;text-align:right;}
 
-/* TRI */
-.tri-hero{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px 20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden;}
-.tri-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(192,132,252,.06) 0%,transparent 70%);pointer-events:none;}
-.tri-big{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,14vw,110px);font-weight:300;line-height:1;color:var(--accent);}
+/* TRI PAGE */
+.tri-hero{text-align:center;padding:32px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;position:relative;overflow:hidden;}
+.tri-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,197,71,.06) 0%,transparent 70%);pointer-events:none;}
+.tri-big{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,15vw,120px);font-weight:300;line-height:1;color:var(--accent);position:relative;}
+.tri-label{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
 .tri-sub{font-size:12px;color:var(--text2);margin-top:8px;}
-.tri-table{width:100%;border-collapse:collapse;font-size:11px;}
-.tri-table th{padding:10px 12px;text-align:left;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);}
-.tri-table td{padding:10px 12px;border-bottom:1px solid rgba(39,39,42,.4);}
-.tri-table tr:hover td{background:var(--surface2);}
+.tri-sub strong{color:var(--text);}
 
-/* IC */
+.tri-method{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+@media(max-width:600px){.tri-method{grid-template-columns:1fr;}}
+.method-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.method-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:12px;}
+.method-formula{font-size:11px;line-height:1.8;color:var(--text);}
+.method-formula code{color:var(--accent);background:rgba(232,197,71,.1);padding:2px 6px;border-radius:4px;}
+
+.tri-table{width:100%;border-collapse:collapse;font-size:11px;}
+.tri-table th{padding:10px 12px;text-align:left;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);}
+.tri-table td{padding:10px 12px;border-bottom:1px solid rgba(39,39,42,.5);}
+.tri-table tr:last-child td{border-bottom:none;font-weight:500;color:var(--accent);}
+.tri-table tr:hover td{background:var(--surface2);}
+.chart-full{width:100%;height:220px;}
+
+/* TIMELINE */
+.tl-evo{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tl-point{flex:1;min-width:80px;padding:10px 8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:all .2s;}
+.tl-point.active{border-color:var(--accent);background:var(--surface2);}
+.tl-point-date{font-size:9px;color:var(--text2);margin-bottom:4px;}
+.tl-point-val{font-family:'Cormorant Garamond',serif;font-size:15px;}
+.tl-point-delta{font-size:10px;margin-top:2px;}
+.tl-slider-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+.tl-dots{display:flex;justify-content:space-between;margin-top:12px;}
+.tl-dot{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.tl-dot-circle{width:10px;height:10px;border-radius:50%;background:var(--border);border:2px solid var(--text2);transition:all .2s;}
+.tl-dot.active .tl-dot-circle{background:var(--accent);border-color:var(--accent);transform:scale(1.3);}
+.tl-dot-label{font-size:9px;color:var(--text2);}
+.tl-dot.active .tl-dot-label{color:var(--accent);}
+input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
+.tl-date-display{text-align:center;margin-bottom:16px;}
+.tl-current-date{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,36px);font-weight:300;}
+.tl-current-total{font-size:12px;color:var(--text2);margin-top:4px;}
+.tl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:600px){.tl-grid{grid-template-columns:1fr;}}
+.delta-rows{display:flex;flex-direction:column;gap:8px;}
+.delta-row{display:flex;align-items:center;gap:10px;}
+.delta-ticker{width:55px;font-size:10px;color:var(--text2);}
+.delta-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.delta-fill{height:100%;border-radius:3px;}
+.delta-amount{font-size:11px;min-width:80px;text-align:right;}
+
+/* DIVIDENDS */
+.div-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:16px;}
+@media(max-width:600px){.div-grid{grid-template-columns:repeat(6,1fr);}}
+.div-month{text-align:center;}
+.div-month-name{font-size:8px;color:var(--text2);margin-bottom:4px;}
+.div-bar{border-radius:2px;min-height:4px;background:var(--border);}
+.div-bar.active{background:var(--accent);}
+.div-amount{font-size:8px;color:var(--accent);margin-top:3px;}
+.div-list{display:flex;flex-direction:column;gap:8px;}
+.div-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface2);border-radius:8px;}
+.div-date{font-size:10px;color:var(--text2);width:90px;}
+.div-source{flex:1;font-size:11px;}
+.div-amt{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--accent);}
+.div-badge{font-size:9px;padding:2px 8px;border-radius:10px;background:rgba(232,197,71,.15);color:var(--accent);letter-spacing:.1em;}
+.div-badge.confirmed{background:rgba(74,222,128,.1);color:var(--accent2);}
+
+/* LIVE */
+.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:16px;}
+.live-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:16px;}
+.live-color-bar{width:4px;height:50px;border-radius:2px;flex-shrink:0;}
+.live-ticker{font-size:13px;font-weight:500;margin-bottom:2px;}
+.live-name{font-size:10px;color:var(--text2);margin-bottom:4px;}
+.live-isin{font-size:9px;color:var(--text2);letter-spacing:.1em;}
+.live-right{margin-left:auto;text-align:right;}
+.live-formula{font-size:10px;color:var(--accent);background:rgba(232,197,71,.1);padding:3px 8px;border-radius:4px;margin-bottom:6px;display:inline-block;}
+.live-parts{font-size:11px;color:var(--text2);}
+
+.formula-note{background:var(--surface);border:1px solid rgba(232,197,71,.3);border-radius:10px;padding:16px 20px;font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:16px;}
+.formula-note strong{color:var(--accent);}
+.code-block{padding:10px 14px;background:var(--surface2);border-radius:8px;font-size:11px;margin-bottom:8px;}
+.code-block .cb-label{color:var(--text2);margin-bottom:4px;}
+.code-block code{color:var(--accent);}
+
+/* SIMULATEUR DIVIDENDES */
+.ds-tab{flex:1;min-width:120px;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-align:center;cursor:pointer;font-size:10px;letter-spacing:.08em;color:var(--text2);font-family:'DM Mono',monospace;transition:all .2s;}
+.ds-tab.active{background:var(--surface3);color:var(--accent);border-color:var(--accent);}
+.ds-page{display:none;}.ds-page.active{display:block;}
+.ds-line-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface2);border-radius:8px;font-size:11px;}
+.ds-line-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ds-remove{background:none;border:none;color:var(--accent3);cursor:pointer;font-size:14px;padding:0 4px;}
+
+/* MONTE CARLO */
+.mc-hero{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.mc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(168,139,250,.05) 0%,transparent 70%);pointer-events:none;}
+.mc-hero-label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--guard);margin-bottom:8px;}
+.mc-hero-desc{font-size:12px;color:var(--text2);line-height:1.7;}
+
+/* INTÉRÊTS COMPOSÉS */
 .ic-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;}
 @media(max-width:600px){.ic-controls{grid-template-columns:1fr;}}
 .ic-control{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
 .ic-control label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:10px;}
 .ic-control input[type=range]{width:100%;accent-color:var(--accent);margin-bottom:6px;}
-.ic-val{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--accent);}
+.ic-val{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--accent);}
 .ic-val span{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;}
-.ic-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;}
-@media(min-width:600px){.ic-kpis{grid-template-columns:repeat(4,1fr);}}
+
+.ic-scenarios{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.ic-scenario{flex:1;min-width:80px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:all .2s;font-size:10px;color:var(--text2);font-family:'DM Mono',monospace;}
+.ic-scenario.active{border-color:var(--accent);background:var(--surface2);color:var(--accent);}
+
+.ic-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+@media(max-width:640px){.ic-kpis{grid-template-columns:repeat(2,1fr);}}
 .ic-kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative;overflow:hidden;}
 .ic-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--accent));}
 .ic-kpi-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;}
-.ic-kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3vw,24px);line-height:1;}
+.ic-kpi-val{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,3vw,26px);line-height:1;}
 .ic-kpi-sub{font-size:10px;color:var(--accent2);margin-top:4px;}
-.ic-chart-wrap{width:100%;height:280px;}
+
 .ic-table{width:100%;border-collapse:collapse;font-size:11px;}
 .ic-table th{padding:8px 12px;text-align:left;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);}
 .ic-table td{padding:9px 12px;border-bottom:1px solid rgba(39,39,42,.4);}
+.ic-table tr:last-child td{border-bottom:none;font-weight:500;}
 .ic-table tr:hover td{background:var(--surface2);}
+.ic-table .yr-milestone{background:rgba(232,197,71,.05);}
 .ic-table .yr-milestone td{color:var(--accent);}
 
-/* RESTE */
+.ic-chart-wrap{width:100%;height:420px;}
 .ic-doubling{background:var(--surface2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6;}
 .ic-doubling strong{color:var(--accent);}
 
@@ -125,47 +221,51 @@ canvas{max-width:220px;max-height:220px;}
       <h1>Portfolio <em>Dashboard</em></h1>
     </div>
     <div class="header-right">
-      <div class="badge">✨ Ouvert avril 2025</div>
+      <div class="live-badge"><div class="live-dot"></div>✨ Ouvert avril 2025</div>
       <div class="header-date">Dernière MàJ : 8 juin 2026</div>
     </div>
   </div>
 
-  <!-- KPI STRIP -->
   <div class="kpi-strip">
     <div class="kpi-card" style="--kc:#3b82f6">
       <div class="kpi-label">Capital investi</div>
-      <div class="kpi-val">5 400 €</div>
-      <div class="kpi-sub">depuis avril 2025</div>
+      <div class="kpi-val">124 000 €</div>
+      <div class="kpi-sub">versements progressifs · 9 ans</div>
     </div>
     <div class="kpi-card" style="--kc:#4ade80">
       <div class="kpi-label">Valeur PEA</div>
-      <div class="kpi-val">5 551 €</div>
-      <div class="kpi-sub">+151 € · +2,8%</div>
+      <div class="kpi-val">188 501 €</div>
+      <div class="kpi-sub">+64 501 € de gain · <strong>+52,0%</strong></div>
     </div>
-    <div class="kpi-card" style="--kc:#c084fc">
+    <div class="kpi-card" style="--kc:#e8c547">
       <div class="kpi-label">TRI annualisé</div>
       <div class="kpi-val">5,20 %</div>
-      <div class="kpi-sub">sur 14 mois</div>
+      <div class="kpi-sub highlight">Base : 5 400 € investis</div>
     </div>
-    <div class="kpi-card" style="--kc:#f59e0b">
-      <div class="kpi-label">PV latentes</div>
-      <div class="kpi-val">+107 €</div>
-      <div class="kpi-sub">sur titres actuels</div>
+    <div class="kpi-card" style="--kc:#a78bfa">
+      <div class="kpi-label">Dividendes 2026</div>
+      <div class="kpi-val">~3 986 €</div>
+      <div class="kpi-sub">dont 3 801 € en déc.</div>
     </div>
   </div>
 
-  <!-- NAV -->
   <div style="margin-bottom:8px">
-    <div class="nav-section-label">Analyse</div>
+    <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;padding-left:4px">Analyse</div>
     <div class="nav" style="margin-bottom:0">
       <button class="nav-tab active" onclick="showPage('portfolio',this)">📊 Portefeuille</button>
       <button class="nav-tab" onclick="showPage('tri',this)">📐 TRI</button>
+      <button class="nav-tab" onclick="showPage('timeline',this)">📈 Timeline</button>
+      <button class="nav-tab" onclick="showPage('dividends',this)">💰 Dividendes</button>
+      <button class="nav-tab" onclick="showPage('reste',this)">🎯 Objectif versement</button>
+      <button class="nav-tab" onclick="showPage('fiscalite',this)">🏦 Après impôts</button>
     </div>
   </div>
   <div style="margin-bottom:28px">
-    <div class="nav-section-label">Simulateurs</div>
-    <div class="nav sim" style="margin-bottom:0;border-color:rgba(192,132,252,.2)">
+    <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:6px;padding-left:4px">Simulateurs</div>
+    <div class="nav sim" style="margin-bottom:0;border-color:rgba(232,197,71,.2)">
       <button class="nav-tab" onclick="showPage('compound',this)">🔄 Intérêts composés</button>
+      <button class="nav-tab" onclick="showPage('divsim',this)">🌱 Dividendes</button>
+      <button class="nav-tab" onclick="showPage('montecarlo',this)">🎲 Monte Carlo</button>
     </div>
   </div>
 
@@ -182,93 +282,154 @@ canvas{max-width:220px;max-height:220px;}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Plus-values latentes</div>
+      <div class="card-title">Plus-values latentes par ligne</div>
       <div class="pv-bars" id="pvBars"></div>
     </div>
   </div>
 
   <!-- PAGE TRI -->
   <div class="page" id="page-tri">
+
     <div class="tri-hero">
-      <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">TRI · Depuis avril 2025</div>
-      <div class="tri-big">5,20%</div>
-      <div class="tri-sub">par an · sur <strong>14 mois</strong> · ~386 €/mois versés</div>
+      <div class="tri-label">Taux de Rendement Interne · Depuis avril 2017</div>
+      <div class="tri-big">9,12%</div>
+      <div class="tri-sub">par an · sur <strong>9 ans</strong> · versements de <strong>1 000 €/mois</strong></div>
     </div>
 
-    <div class="main-grid">
-      <div class="card" style="margin-bottom:0">
-        <div class="card-title">Méthode de calcul</div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.8">
-          Le TRI est calculé via <span style="color:var(--accent)">Newton-Raphson</span> sur les flux mensuels.<br><br>
-          Flux : <span style="color:var(--accent)">-~386 €/mois</span> × 14 mois → <span style="color:var(--accent)">+5 551 €</span><br><br>
-          C'est la mesure la plus juste pour un investisseur en <strong>DCA</strong>.
+    <div class="tri-method">
+      <div class="method-card">
+        <div class="method-title">Méthode de calcul</div>
+        <div class="method-formula">
+          Le TRI est calculé via la méthode <code>Newton-Raphson</code> sur les flux de trésorerie mensuels.<br><br>
+          Flux : <code>-~386 €/mois</code> pendant 14 mois, puis <code>+5 551 €</code> à la fin.<br><br>
+          On cherche le taux <em>r</em> tel que la <strong>VAN = 0</strong>, soit le rendement réel qui explique exactement le résultat obtenu.
         </div>
       </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="card-title">Comparaison (même période)</div>
-        <div class="pv-bars">
-          <div class="pv-row"><div class="pv-ticker">Ton PEA</div><div class="pv-track"><div class="pv-fill" style="width:50%;background:var(--accent)"></div></div><div class="pv-pct" style="color:var(--accent)">5,20%</div></div>
-          <div class="pv-row"><div class="pv-ticker">MSCI W.</div><div class="pv-track"><div class="pv-fill" style="width:83%;background:#3b82f6"></div></div><div class="pv-pct" style="color:#3b82f6">~10,5%</div></div>
-          <div class="pv-row"><div class="pv-ticker">CAC 40</div><div class="pv-track"><div class="pv-fill" style="width:62%;background:#f59e0b"></div></div><div class="pv-pct" style="color:#f59e0b">~7,8%</div></div>
-          <div class="pv-row"><div class="pv-ticker">Livret A</div><div class="pv-track"><div class="pv-fill" style="width:13%;background:#6b7280"></div></div><div class="pv-pct" style="color:#6b7280">~1,6%</div></div>
+      <div class="method-card">
+        <div class="method-title">Pourquoi le TRI plutôt que la performance brute ?</div>
+        <div class="method-formula">
+          La performance brute (+60,8%) ne tient pas compte du <strong>timing des versements</strong>.<br><br>
+          Les premiers 1 000 € versés en 2017 ont travaillé <strong>9 ans</strong>, mais les derniers versements seulement quelques mois.<br><br>
+          Le TRI est la mesure <strong>la plus juste</strong> pour un investisseur en DCA.
         </div>
       </div>
     </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Évolution annuelle — Capital investi vs Valeur réelle</div>
+      <canvas id="triChart" class="chart-full"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tableau de progression année par année</div>
+      <table class="tri-table">
+        <thead>
+          <tr>
+            <th>Année</th>
+            <th>Date</th>
+            <th>Capital investi</th>
+            <th>Valeur estimée</th>
+            <th>Gain cumulé</th>
+            <th>Performance</th>
+          </tr>
+        </thead>
+        <tbody id="triTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Comparaison vs indices de référence (même période)</div>
+      <div class="pv-bars" style="margin-top:4px" id="compBars"></div>
+    </div>
+
   </div>
 
   <!-- PAGE INTÉRÊTS COMPOSÉS -->
   <div class="page" id="page-compound">
 
+    <!-- Scénarios prédéfinis -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Scénario de rendement annuel</div>
+      <div class="ic-scenarios">
+        <div class="ic-scenario" onclick="setICScenario(4,this)">📉 Pessimiste<br><strong>4%</strong>/an</div>
+        <div class="ic-scenario" onclick="setICScenario(7,this)">📊 Réaliste<br><strong>7%</strong>/an</div>
+        <div class="ic-scenario active" onclick="setICScenario(10.22,this)">🎯 Mon TRI<br><strong>10,22%</strong>/an</div>
+        <div class="ic-scenario" onclick="setICScenario(12,this)">🚀 Optimiste<br><strong>12%</strong>/an</div>
+      </div>
+    </div>
+
+    <!-- Contrôles -->
     <div class="ic-controls">
       <div class="ic-control">
         <label>Capital de départ (€)</label>
-        <input type="range" id="icCapital" min="0" max="50000" step="100" value="5551" oninput="updateIC()">
+        <input type="range" id="icCapital" min="0" max="50000" step="100" value="5551">
         <div class="ic-val" id="icCapitalVal">5 551 <span>€</span></div>
       </div>
       <div class="ic-control">
         <label>Rendement annuel (%)</label>
-        <input type="range" id="icRate" min="1" max="20" step="0.5" value="10" oninput="updateIC()">
-        <div class="ic-val" id="icRateVal">10 <span>%</span></div>
+        <input type="range" id="icRate" min="1" max="20" step="0.1" value="10.22">
+        <div class="ic-val" id="icRateVal">10,22 <span>%</span></div>
       </div>
       <div class="ic-control">
         <label>Versement mensuel (€)</label>
-        <input type="range" id="icMonthly" min="0" max="2000" step="50" value="400" oninput="updateIC()">
-        <div class="ic-val" id="icMonthlyVal">400 <span>€/mois</span></div>
+        <input type="range" id="icMonthly" min="0" max="5000" step="100" value="1000">
+        <div class="ic-val" id="icMonthlyVal">1 000 <span>€/mois</span></div>
       </div>
       <div class="ic-control">
         <label>Horizon (années)</label>
-        <input type="range" id="icYears" min="1" max="30" step="1" value="10" oninput="updateIC()">
+        <input type="range" id="icYears" min="1" max="30" step="1" value="10">
         <div class="ic-val" id="icYearsVal">10 <span>ans</span></div>
       </div>
     </div>
 
-    <!-- Scénarios -->
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
-      <button onclick="setScenario(4,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">📉 Pessimiste 4%</button>
-      <button onclick="setScenario(7,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">📊 Réaliste 7%</button>
-      <button onclick="setScenario(10,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--accent);background:var(--surface2);color:var(--accent);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">🎯 Mon TRI 12,65%</button>
-      <button onclick="setScenario(12,this)" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">🚀 Optimiste 15%</button>
-    </div>
-
+    <!-- KPIs résultats -->
     <div class="ic-kpis">
-      <div class="ic-kpi" style="--kc:#c084fc"><div class="ic-kpi-label">Valeur finale</div><div class="ic-kpi-val" id="icFinal">—</div><div class="ic-kpi-sub" id="icFinalSub">—</div></div>
-      <div class="ic-kpi" style="--kc:#4ade80"><div class="ic-kpi-label">Gain total</div><div class="ic-kpi-val" id="icGain">—</div><div class="ic-kpi-sub" id="icGainSub">—</div></div>
-      <div class="ic-kpi" style="--kc:#60a5fa"><div class="ic-kpi-label">Capital investi total</div><div class="ic-kpi-val" id="icTotalInvested">—</div><div class="ic-kpi-sub">départ + versements</div></div>
-      <div class="ic-kpi" style="--kc:#a78bfa"><div class="ic-kpi-label">Part intérêts purs</div><div class="ic-kpi-val" id="icInterest">—</div><div class="ic-kpi-sub" id="icInterestSub">—</div></div>
+      <div class="ic-kpi" style="--kc:#e8c547">
+        <div class="ic-kpi-label">Valeur finale</div>
+        <div class="ic-kpi-val" id="icFinal">—</div>
+        <div class="ic-kpi-sub" id="icFinalSub">—</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#4ade80">
+        <div class="ic-kpi-label">Gain total</div>
+        <div class="ic-kpi-val" id="icGain">—</div>
+        <div class="ic-kpi-sub" id="icGainSub">—</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#60a5fa">
+        <div class="ic-kpi-label">Capital investi total</div>
+        <div class="ic-kpi-val" id="icTotalInvested">—</div>
+        <div class="ic-kpi-sub">départ + versements</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#a78bfa">
+        <div class="ic-kpi-label">Dont intérêts purs</div>
+        <div class="ic-kpi-val" id="icInterest">—</div>
+        <div class="ic-kpi-sub" id="icInterestSub">—</div>
+      </div>
     </div>
 
+    <!-- Info doublement -->
     <div class="ic-doubling" id="icDoubling"></div>
 
+    <!-- Graphique -->
     <div class="card" style="margin-bottom:16px">
       <div class="card-title">Projection de la valeur</div>
       <canvas id="icChart" class="ic-chart-wrap"></canvas>
     </div>
 
+    <!-- Tableau -->
     <div class="card">
       <div class="card-title">Détail année par année</div>
       <div style="overflow-x:auto">
         <table class="ic-table">
-          <thead><tr><th>Année</th><th>Capital investi</th><th>Valeur</th><th>Intérêts cumulés</th><th>Gain annuel</th><th>Performance</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Année</th>
+              <th>Capital investi</th>
+              <th>Valeur portefeuille</th>
+              <th>Intérêts cumulés</th>
+              <th>Gain annuel</th>
+              <th>Performance</th>
+            </tr>
+          </thead>
           <tbody id="icTableBody"></tbody>
         </table>
       </div>
@@ -276,33 +437,620 @@ canvas{max-width:220px;max-height:220px;}
 
   </div>
 
-  <div class="note">PEA Clémence Reynaud · Capital investi : 5 400 € · TRI : 5,20%/an · Ouvert avril 2025 · 4 lignes actives</div>
+  <!-- PAGE TIMELINE -->
+  <div class="page" id="page-timeline">
+    <div class="card">
+      <div class="card-title">Évolution de la valeur totale</div>
+      <div class="tl-evo" id="tlEvo"></div>
+    </div>
+    <div class="tl-slider-wrap">
+      <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin-bottom:12px">Sélectionner une date</div>
+      <input type="range" id="tlSlider" min="0" max="0" step="1" value="0">
+      <div class="tl-dots" id="tlDots"></div>
+    </div>
+    <div class="tl-date-display">
+      <div class="tl-current-date" id="tlDate">—</div>
+      <div class="tl-current-total" id="tlTotal">—</div>
+    </div>
+    <div class="tl-grid">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title">Composition</div>
+        <div class="donut-wrap"><canvas id="tlDonut"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title" id="tlDeltaTitle">Variation vs date précédente</div>
+        <div class="delta-rows" id="tlDeltaRows"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE DIVIDENDES -->
+  <div class="page" id="page-dividends">
+    <div class="card">
+      <div class="card-title">Calendrier mensuel — Année type</div>
+      <div class="div-grid" id="divGrid"></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:12px">💡 96% des dividendes arrivent en décembre. Dividende annuel total estimé : <strong style="color:var(--accent)">~3 986 €</strong></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Prochains versements</div>
+      <div class="div-list" id="divList"></div>
+    </div>
+  </div>
+
+  <!-- PAGE RESTE À INVESTIR -->
+  <div class="page" id="page-reste">
+
+    <!-- Hero -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px 24px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,197,71,.06) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">Objectif de versement · PEA</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent)" id="resteHero">26 000 €</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:8px">restent à investir pour atteindre l'objectif</div>
+    </div>
+
+    <!-- Objectif slider -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Paramétrer l'objectif</div>
+      <div style="display:grid;grid-template-columns:1fr;gap:16px">
+        <div class="ic-control">
+          <label>Versement mensuel prévu (€)</label>
+          <input type="range" id="resteMonthly" min="0" max="5000" step="100" value="1000" oninput="updateReste()">
+          <div class="ic-val" id="resteMonthlyVal">1 000 <span>€/mois</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="ic-kpis" style="margin-bottom:16px">
+      <div class="ic-kpi" style="--kc:#e8c547">
+        <div class="ic-kpi-label">Déjà investi</div>
+        <div class="ic-kpi-val">124 000 €</div>
+        <div class="ic-kpi-sub" id="resteDejaSubPct">82,7% de l'objectif</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#4ade80">
+        <div class="ic-kpi-label">Reste à investir</div>
+        <div class="ic-kpi-val" id="resteKpiReste">26 000 €</div>
+        <div class="ic-kpi-sub" id="resteKpiRestePct">17,3% restants</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#60a5fa">
+        <div class="ic-kpi-label">Temps estimé</div>
+        <div class="ic-kpi-val" id="resteTemps">26 mois</div>
+        <div class="ic-kpi-sub" id="resteTempsDate">Atteint en août 2028</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#a78bfa">
+        <div class="ic-kpi-label">Valeur PEA estimée</div>
+        <div class="ic-kpi-val" id="resteValeurFuture">—</div>
+        <div class="ic-kpi-sub">à l'objectif (TRI 9,12%)</div>
+      </div>
+    </div>
+
+    <!-- Barre de progression -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Progression vers l'objectif</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:10px">
+        <span>0 €</span>
+        <span id="resteProgLabel">124 000 € / 150 000 €</span>
+        <span id="resteObjectifLabel">150 000 €</span>
+      </div>
+      <div style="height:16px;background:var(--border);border-radius:8px;overflow:hidden;position:relative">
+        <div id="resteBar" style="height:100%;background:linear-gradient(90deg,#3b82f6,#e8c547);border-radius:8px;transition:width .6s ease;width:82.7%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text2);margin-top:6px">
+        <span style="color:var(--accent2)">✅ Déjà investi : 124 000 €</span>
+        <span style="color:var(--accent)" id="resteBarPct">82,7%</span>
+        <span style="color:var(--text2)" id="resteBarRemain">Reste : 26 000 €</span>
+      </div>
+    </div>
+
+    <!-- Jalons -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Jalons de versement</div>
+      <div id="resteJalons" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- Graphique projection -->
+    <div class="card">
+      <div class="card-title">Projection des versements cumulés</div>
+      <canvas id="resteChart" style="width:100%;height:260px"></canvas>
+    </div>
+
+  </div>
+
+  <!-- PAGE APRÈS IMPÔTS -->
+  <div class="page" id="page-fiscalite">
+
+    <!-- Hero -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px 24px;margin-bottom:16px;position:relative;overflow:hidden;text-align:center">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(74,222,128,.05) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text2);margin-bottom:10px">Valeur nette · PEA après prélèvements sociaux</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,12vw,96px);font-weight:300;line-height:1;color:var(--accent2)" id="fiscHero">—</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:8px">si tu retirais tout aujourd'hui</div>
+
+      <!-- Décomposition -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap">
+        <div style="padding:14px 20px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Capital investi</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--blue)">124 000 €</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--text2)">+</div>
+        <div style="padding:14px 20px;background:var(--surface2);border:1px solid rgba(74,222,128,.3);border-radius:10px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Plus-value nette après impôts</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--accent2)" id="fiscPvNette">—</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--text2)">=</div>
+        <div style="padding:14px 20px;background:var(--surface2);border:1px solid rgba(74,222,128,.5);border-radius:10px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Tu touches réellement</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--accent2)" id="fiscHero2">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explication règle fiscale -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Règle fiscale PEA (ouvert depuis > 5 ans)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px">
+        <div style="padding:14px;background:var(--surface2);border-radius:8px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px">Impôt revenu</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--accent2)">0%</div>
+          <div style="font-size:10px;color:var(--text2);margin-top:4px">Exonération totale</div>
+        </div>
+        <div style="padding:14px;background:var(--surface2);border-radius:8px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px">Prélèvements sociaux</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--accent3)">18,6%</div>
+          <div style="font-size:10px;color:var(--text2);margin-top:4px">Sur plus-values uniquement</div>
+        </div>
+        <div style="padding:14px;background:var(--surface2);border-radius:8px;text-align:center">
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px">Taxation effective</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--accent)">18,6%</div>
+          <div style="font-size:10px;color:var(--text2);margin-top:4px">vs 30% hors PEA (flat tax)</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.7;padding:10px 14px;background:var(--surface2);border-radius:8px">
+        💡 <strong style="color:var(--text)">Avantage PEA vs Compte-titres ordinaire :</strong> hors PEA, la flat tax est de <strong style="color:var(--accent3)">30%</strong> (12,8% IR + 18,6% PS). Dans ton PEA ouvert depuis avril 2017, tu économises <strong style="color:var(--accent2)" id="fiscEconomie">—</strong> d'impôt grâce à l'exonération IR.
+      </div>
+    </div>
+
+    <!-- Slider taux PS personnalisable -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Paramètres de simulation</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="ic-control">
+          <label>Taux prélèvements sociaux (%)</label>
+          <input type="range" id="fiscTaux" min="15" max="20" step="0.1" value="18.6" oninput="updateFisc()">
+          <div class="ic-val" id="fiscTauxVal">18,6 <span>%</span></div>
+        </div>
+        <div class="ic-control">
+          <label>Retrait partiel simulé (€)</label>
+          <input type="range" id="fiscRetrait" min="1000" max="188501" step="1000" value="188501" oninput="updateFisc()">
+          <div class="ic-val" id="fiscRetraitVal">188 501 <span>€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="ic-kpis" style="margin-bottom:16px">
+      <div class="ic-kpi" style="--kc:#4ade80">
+        <div class="ic-kpi-label">Valeur brute</div>
+        <div class="ic-kpi-val" id="fiscBrut">188 501 €</div>
+        <div class="ic-kpi-sub">valeur actuelle du PEA</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#f87171">
+        <div class="ic-kpi-label">Impôts dus</div>
+        <div class="ic-kpi-val" id="fiscImpots">—</div>
+        <div class="ic-kpi-sub" id="fiscImpotsDetail">—</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#e8c547">
+        <div class="ic-kpi-label">Économie vs flat tax</div>
+        <div class="ic-kpi-val" id="fiscEconomieKpi">—</div>
+        <div class="ic-kpi-sub">vs compte-titres ordinaire</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#4ade80">
+        <div class="ic-kpi-label">Valeur nette après impôts</div>
+        <div class="ic-kpi-val" id="fiscNet">—</div>
+        <div class="ic-kpi-sub" id="fiscNetDetail">—</div>
+      </div>
+    </div>
+
+    <!-- Graphique comparatif -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Comparaison PEA vs Compte-titres (flat tax 30%)</div>
+      <canvas id="fiscChart" style="width:100%;height:280px"></canvas>
+    </div>
+
+    <!-- Simulation retrait progressif -->
+    <div class="card">
+      <div class="card-title">Simulation de retrait progressif</div>
+      <div style="overflow-x:auto">
+        <table class="ic-table">
+          <thead>
+            <tr>
+              <th>Retrait</th>
+              <th>Part de la PV retirée</th>
+              <th>PS dus (18,6%)</th>
+              <th>Économie vs flat tax</th>
+              <th>Montant net</th>
+            </tr>
+          </thead>
+          <tbody id="fiscTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PAGE MONTE CARLO -->
+  <div class="page" id="page-montecarlo">
+
+    <div class="mc-hero">
+      <div class="mc-hero-label">Simulation Monte Carlo · <span id="mcSimCount">1 000</span> scénarios</div>
+      <div class="mc-hero-desc">Modélise l'incertitude des marchés en simulant des milliers de trajectoires possibles de ton PEA, basées sur les rendements et la volatilité historiques du MSCI World.</div>
+    </div>
+
+    <!-- Contrôles -->
+    <div class="ic-controls" style="margin-bottom:16px">
+      <div class="ic-control">
+        <label>Capital de départ (€)</label>
+        <input type="range" id="mcCapital" min="1000" max="50000" step="100" value="5551">
+        <div class="ic-val" id="mcCapitalVal">5 551 <span>€</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Versement mensuel (€)</label>
+        <input type="range" id="mcMonthly" min="0" max="5000" step="100" value="1000">
+        <div class="ic-val" id="mcMonthlyVal">1 000 <span>€/mois</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Rendement annuel moyen (%)</label>
+        <input type="range" id="mcMean" min="3" max="15" step="0.5" value="9">
+        <div class="ic-val" id="mcMeanVal">9,0 <span>%</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Volatilité annuelle (%)</label>
+        <input type="range" id="mcVol" min="5" max="30" step="1" value="15">
+        <div class="ic-val" id="mcVolVal">15 <span>%</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Horizon (années)</label>
+        <input type="range" id="mcYears" min="5" max="30" step="1" value="10">
+        <div class="ic-val" id="mcYearsVal">10 <span>ans</span></div>
+      </div>
+      <div class="ic-control">
+        <label>Nombre de simulations</label>
+        <input type="range" id="mcSims" min="100" max="5000" step="100" value="1000">
+        <div class="ic-val" id="mcSimsVal">1 000 <span>sim.</span></div>
+      </div>
+    </div>
+
+    <button id="mcRunBtn" onclick="runMonteCarlo()" style="width:100%;padding:14px;background:var(--accent);color:#09090b;border:none;border-radius:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin-bottom:16px;font-weight:500;transition:opacity .2s">
+      🎲 Lancer la simulation
+    </button>
+
+    <!-- KPIs résultats -->
+    <div class="ic-kpis" id="mcKpis" style="display:none">
+      <div class="ic-kpi" style="--kc:#4ade80">
+        <div class="ic-kpi-label">Médiane (P50)</div>
+        <div class="ic-kpi-val" id="mcP50">—</div>
+        <div class="ic-kpi-sub">50% des scénarios</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#e8c547">
+        <div class="ic-kpi-label">Optimiste (P90)</div>
+        <div class="ic-kpi-val" id="mcP90">—</div>
+        <div class="ic-kpi-sub">10% des meilleurs</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#f87171">
+        <div class="ic-kpi-label">Pessimiste (P10)</div>
+        <div class="ic-kpi-val" id="mcP10">—</div>
+        <div class="ic-kpi-sub">10% des pires</div>
+      </div>
+      <div class="ic-kpi" style="--kc:#a78bfa">
+        <div class="ic-kpi-label">Proba. > capital investi</div>
+        <div class="ic-kpi-val" id="mcProbPos">—</div>
+        <div class="ic-kpi-sub">de finir en positif</div>
+      </div>
+    </div>
+
+    <!-- Graphique fan chart -->
+    <div class="card" id="mcChartCard" style="display:none;margin-bottom:16px">
+      <div class="card-title">Distribution des trajectoires simulées</div>
+      <canvas id="mcChart" style="width:100%;height:300px"></canvas>
+    </div>
+
+    <!-- Distribution finale -->
+    <div class="card" id="mcDistCard" style="display:none;margin-bottom:16px">
+      <div class="card-title">Distribution des valeurs finales</div>
+      <canvas id="mcDistChart" style="width:100%;height:200px"></canvas>
+    </div>
+
+    <!-- Tableau percentiles -->
+    <div class="card" id="mcTableCard" style="display:none">
+      <div class="card-title">Analyse par percentile</div>
+      <table class="ic-table">
+        <thead>
+          <tr>
+            <th>Percentile</th>
+            <th>Valeur finale</th>
+            <th>Gain vs capital investi</th>
+            <th>Performance</th>
+            <th>Interprétation</th>
+          </tr>
+        </thead>
+        <tbody id="mcTableBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="note">Capital investi : 5 400 € · TRI : 5,20%/an · PV latentes : 107 € · Données Bourse Direct 8 juin 2026 · PEA Clémence Reynaud</div>
+
+  <!-- PAGE SIMULATEUR DIVIDENDES -->
+  <div class="page" id="page-divsim">
+
+    <!-- Tabs internes -->
+    <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="ds-tab active" onclick="showDsTab('revenus',this)">📈 Revenus sur X ans</button>
+      <button class="ds-tab" onclick="showDsTab('cible',this)">🎯 Atteindre un revenu cible</button>
+      <button class="ds-tab" onclick="showDsTab('comparaison',this)">⚖️ Comparaison</button>
+    </div>
+
+    <!-- ── TAB 1 : REVENUS SUR X ANS ── -->
+    <div class="ds-page active" id="ds-revenus">
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">Ajouter des lignes à simuler</div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:12px" id="dsInputRow">
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Nom (action/ETF)</div>
+            <input id="dsName" type="text" placeholder="ex: SEL, TotalEnergies…" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Capital (€)</div>
+            <input id="dsCapital" type="number" placeholder="10000" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Rend. div. (%/an)</div>
+            <input id="dsYield" type="number" placeholder="5.75" step="0.1" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Croissance div. (%/an)</div>
+            <input id="dsGrowth" type="number" placeholder="3" step="0.5" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <button onclick="addDsLine()" style="background:var(--accent);color:#09090b;border:none;border-radius:6px;padding:9px 14px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;font-weight:500;white-space:nowrap">+ Ajouter</button>
+        </div>
+
+        <!-- Lignes ajoutées -->
+        <div id="dsLines" style="display:flex;flex-direction:column;gap:6px"></div>
+
+        <!-- Pré-remplir depuis mon PEA -->
+        <button onclick="prefillFromPEA()" style="margin-top:12px;background:transparent;border:1px solid var(--border);border-radius:6px;padding:8px 14px;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:.1em">
+          ↩ Pré-remplir depuis mon PEA
+        </button>
+      </div>
+
+      <!-- Options -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+        <div class="ic-control">
+          <label>Horizon (années)</label>
+          <input type="range" id="dsYears" min="1" max="30" step="1" value="10" oninput="updateDsYearsVal();runDsSim()">
+          <div class="ic-val" id="dsYearsVal">10 <span>ans</span></div>
+        </div>
+        <div class="ic-control">
+          <label>Réinvestir les dividendes ?</label>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="dsReinvestOn" onclick="setDsReinvest(true)" style="flex:1;padding:8px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#09090b;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">✅ Oui</button>
+            <button id="dsReinvestOff" onclick="setDsReinvest(false)" style="flex:1;padding:8px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer">Non</button>
+          </div>
+        </div>
+        <div class="ic-control">
+          <label>Versement mensuel (€)</label>
+          <input type="range" id="dsAddMonthly" min="0" max="3000" step="100" value="0" oninput="updateDsMonthlyVal();runDsSim()">
+          <div class="ic-val" id="dsMonthlyVal">0 <span>€/mois</span></div>
+        </div>
+      </div>
+
+      <!-- KPIs résultats -->
+      <div class="ic-kpis" id="dsKpis1" style="margin-bottom:16px">
+        <div class="ic-kpi" style="--kc:#e8c547">
+          <div class="ic-kpi-label">Dividendes an 1</div>
+          <div class="ic-kpi-val" id="dsDiv1">—</div>
+          <div class="ic-kpi-sub" id="dsDiv1Sub">—</div>
+        </div>
+        <div class="ic-kpi" style="--kc:#4ade80">
+          <div class="ic-kpi-label">Dividendes finaux</div>
+          <div class="ic-kpi-val" id="dsDivFinal">—</div>
+          <div class="ic-kpi-sub" id="dsDivFinalSub">—</div>
+        </div>
+        <div class="ic-kpi" style="--kc:#60a5fa">
+          <div class="ic-kpi-label">Total dividendes cumulés</div>
+          <div class="ic-kpi-val" id="dsDivTotal">—</div>
+          <div class="ic-kpi-sub">sur toute la période</div>
+        </div>
+        <div class="ic-kpi" style="--kc:#a78bfa">
+          <div class="ic-kpi-label">Valeur portefeuille finale</div>
+          <div class="ic-kpi-val" id="dsPortFinal">—</div>
+          <div class="ic-kpi-sub" id="dsPortFinalSub">—</div>
+        </div>
+      </div>
+
+      <!-- Graphiques -->
+      <div class="main-grid" style="margin-bottom:16px">
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">Dividendes annuels</div>
+          <canvas id="dsDivChart" style="width:100%;height:220px"></canvas>
+        </div>
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">Valeur du portefeuille</div>
+          <canvas id="dsPortChart" style="width:100%;height:220px"></canvas>
+        </div>
+      </div>
+
+      <!-- Tableau -->
+      <div class="card">
+        <div class="card-title">Projection année par année</div>
+        <div style="overflow-x:auto">
+          <table class="ic-table">
+            <thead><tr><th>Année</th><th>Capital</th><th>Dividendes/an</th><th>Dividendes cumulés</th><th>Rendement effectif</th></tr></thead>
+            <tbody id="dsTable1"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB 2 : REVENU CIBLE ── -->
+    <div class="ds-page" id="ds-cible">
+      <div class="main-grid" style="margin-bottom:16px">
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">Paramètres</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="ic-control">
+              <label>Revenu mensuel cible (€)</label>
+              <input type="range" id="dsTargetMonthly" min="100" max="10000" step="100" value="1000" oninput="updateTargetVals()">
+              <div class="ic-val" id="dsTargetMonthlyVal">1 000 <span>€/mois</span></div>
+            </div>
+            <div class="ic-control">
+              <label>Rendement dividende moyen (%)</label>
+              <input type="range" id="dsTargetYield" min="1" max="10" step="0.25" value="4" oninput="updateTargetVals()">
+              <div class="ic-val" id="dsTargetYieldVal">4,00 <span>%</span></div>
+            </div>
+            <div class="ic-control">
+              <label>Croissance annuelle du dividende (%)</label>
+              <input type="range" id="dsTargetGrowth" min="0" max="10" step="0.5" value="3" oninput="updateTargetVals()">
+              <div class="ic-val" id="dsTargetGrowthVal">3,0 <span>%</span></div>
+            </div>
+            <div class="ic-control">
+              <label>Versement mensuel additionnel (€)</label>
+              <input type="range" id="dsTargetMonthlyAdd" min="0" max="3000" step="100" value="1000" oninput="updateTargetVals()">
+              <div class="ic-val" id="dsTargetMonthlyAddVal">1 000 <span>€/mois</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">Résultats</div>
+          <div style="display:flex;flex-direction:column;gap:12px" id="dsTargetResults">
+            <div class="ic-kpi" style="--kc:#e8c547;margin-bottom:0">
+              <div class="ic-kpi-label">Capital nécessaire (aujourd'hui)</div>
+              <div class="ic-kpi-val" id="dsTargetCapNow">—</div>
+              <div class="ic-kpi-sub">pour toucher la cible immédiatement</div>
+            </div>
+            <div class="ic-kpi" style="--kc:#4ade80;margin-bottom:0">
+              <div class="ic-kpi-label">Ton PEA actuel génère déjà</div>
+              <div class="ic-kpi-val" id="dsTargetPEACurrent">~332 €/mois</div>
+              <div class="ic-kpi-sub">avec tes 185 672 € à ~2,15%</div>
+            </div>
+            <div class="ic-kpi" style="--kc:#60a5fa;margin-bottom:0">
+              <div class="ic-kpi-label">Capital manquant</div>
+              <div class="ic-kpi-val" id="dsTargetGap">—</div>
+              <div class="ic-kpi-sub" id="dsTargetGapSub">—</div>
+            </div>
+            <div class="ic-kpi" style="--kc:#a78bfa;margin-bottom:0">
+              <div class="ic-kpi-label">Années pour atteindre la cible</div>
+              <div class="ic-kpi-val" id="dsTargetYearsNeeded">—</div>
+              <div class="ic-kpi-sub">avec versements mensuels + réinvestissement</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Progression vers la cible</div>
+        <canvas id="dsTargetChart" style="width:100%;height:240px"></canvas>
+      </div>
+    </div>
+
+    <!-- ── TAB 3 : COMPARAISON ── -->
+    <div class="ds-page" id="ds-comparaison">
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">Comparer jusqu'à 5 actions/ETF</div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:12px">
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Nom</div>
+            <input id="dcName" type="text" placeholder="ex: TotalEnergies" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Capital (€)</div>
+            <input id="dcCapital" type="number" placeholder="10000" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Rend. (%)</div>
+            <input id="dcYield" type="number" placeholder="4.5" step="0.1" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Croiss. (%)</div>
+            <input id="dcGrowth" type="number" placeholder="3" step="0.5" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text2);margin-bottom:6px">Horizon</div>
+            <input id="dcYears" type="number" placeholder="10" min="1" max="30" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'DM Mono',monospace;font-size:11px">
+          </div>
+          <button onclick="addDcLine()" style="background:var(--accent);color:#09090b;border:none;border-radius:6px;padding:9px 14px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;font-weight:500">+ Ajouter</button>
+        </div>
+        <div id="dcLines" style="display:flex;flex-direction:column;gap:6px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">Comparaison des dividendes cumulés</div>
+        <canvas id="dcChart" style="width:100%;height:260px"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Tableau comparatif</div>
+        <div style="overflow-x:auto">
+          <table class="ic-table">
+            <thead><tr><th>Ligne</th><th>Capital</th><th>Rend.</th><th>Div. an 1</th><th>Div. final</th><th>Total cumulé</th><th>Meilleur</th></tr></thead>
+            <tbody id="dcTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
+const COLORS={SEL:'#f59e0b',DCAM:'#3b82f6',ASML:'#10b981',GUARD:'#a78bfa',PAEEM:'#6b7280',CAC:'#c9a84c',ESE:'#ec4899',TTE:'#f97316'};
 
-const COLORS = { CAC:'#f59e0b', DCAM:'#3b82f6', SEL:'#10b981', GUARD:'#a78bfa' };
-
-const currentData = [
-  {ticker:'DCAM', name:'MSCI World Amundi',       parts:360, pru:5.72,  value:2144},
-  {ticker:'CAC',  name:'Amundi CAC 40 ETF Dist',  parts:21,  pru:78.51, value:1734},
-  {ticker:'SEL',  name:'Stoxx Europe Select Div', parts:44,  pru:23.32, value:1018},
-  {ticker:'GUARD',name:'BNP Europe Defense',      parts:60,  pru:11.61, value:640},
+const currentData=[
+  {ticker:'DCAM', name:'MSCI World Amundi',      isin:'FR001400U5Q4',gf:'EPA:DCAM', parts:360, pru:5.72,  value:2144},
+  {ticker:'CAC',  name:'Amundi CAC 40 ETF Dist', isin:'FR0007052782',gf:'EPA:CAC',  parts:21,  pru:78.51, value:1734},
+  {ticker:'SEL',  name:'Stoxx Europe Select Div',isin:'FR0010378604',gf:'EPA:SEL',  parts:44,  pru:23.32, value:1018},
+  {ticker:'GUARD',name:'BNP Europe Defense',     isin:'LU3047998896',gf:'EPA:GUARD',parts:60,  pru:11.61, value:640},
 ];
 
-const fmt = n => new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
+const triData=[ // Clemence - 14 mois
+  {yr:1,date:'Avr 2026',invested:4629,value:4753,gain:124},
+  {yr:2,date:'Avr 2027',invested:9258,value:10294,gain:1036},
+  {yr:3,date:'Avr 2028',invested:13886,value:16773,gain:2887},
+  {yr:4,date:'Avr 2029',invested:18515,value:24318,gain:5803},
+  {yr:5,date:'Avr 2030',invested:23144,value:33077,gain:9933},
+];
 
-function showPage(id, el) {
+const snapshots=[
+  {date:'Juin 2026',total:5551,lines:[
+    {ticker:'DCAM',value:2144,pru:5.72,parts:360},{ticker:'CAC',value:1734,pru:78.51,parts:21},
+    {ticker:'SEL',value:1018,pru:23.32,parts:44},{ticker:'GUARD',value:640,pru:11.61,parts:60},
+  ]},
+];
+
+const dividends=[
+  {date:'Déc 2026', source:'SEL — Versement annuel',amount:59,confirmed:false},
+  {date:'Déc 2026', source:'CAC 40 ETF — Versement annuel',amount:48,confirmed:false},
+];
+
+const divMonths={Jan:0,Fév:0,Mar:0,Avr:0,Mai:0,Jun:0,Jul:0,Aoû:0,Sep:0,Oct:0,Nov:0,Déc:107};
+
+const fmt=n=>new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
+const fmtD=n=>(n>=0?'+':'')+new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n)+' €';
+
+// NAV
+function showPage(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   el.classList.add('active');
 }
 
-// ── PORTFOLIO ──
-const total = currentData.reduce((s,d)=>s+d.value,0);
+// ── PORTFOLIO ──────────────────────────────────────────────────
+const total=currentData.reduce((s,d)=>s+d.value,0);
 
 new Chart(document.getElementById('mainDonut'),{
   type:'doughnut',
@@ -318,7 +1066,7 @@ currentData.forEach(d=>{
   const isPos=parseFloat(gp)>=0;
   const el=document.createElement('div');
   el.className='line-row';
-  el.innerHTML=`<div class="line-color" style="background:${COLORS[d.ticker]}"></div><div><div class="line-ticker">${d.ticker}</div><div style="font-size:10px;color:var(--text2)">${d.parts} parts</div></div><div style="flex:1;font-size:10px;color:var(--text2)">${d.name}</div><div style="text-align:right"><div class="line-val">${fmt(d.value)}</div><div class="line-meta">${pct}% · PRU ${d.pru}€</div><div class="line-pv ${isPos?'pos':'neg'}">${isPos?'+':''}${gp}%</div></div>`;
+  el.innerHTML=`<div class="line-color" style="background:${COLORS[d.ticker]}"></div><div><div class="line-ticker">${d.ticker}</div><div class="line-name">${d.parts} parts</div></div><div style="flex:1;font-size:10px;color:var(--text2)">${d.name}</div><div class="line-right"><div class="line-val">${fmt(d.value)}</div><div class="line-meta">${pct}% · PRU ${d.pru}€</div><div class="line-pv ${isPos?'pos':'neg'}">${isPos?'+':''}${gp}%</div></div>`;
   lt.appendChild(el);
 });
 
@@ -334,12 +1082,62 @@ currentData.forEach(d=>{
   pvB.appendChild(el);
 });
 
-// ── INTÉRÊTS COMPOSÉS ──
+// ── TRI ──────────────────────────────────────────────────────
+new Chart(document.getElementById('triChart'),{
+  type:'line',
+  data:{
+    labels:triData.map(d=>d.date),
+    datasets:[
+      {label:'Valeur réelle',data:triData.map(d=>d.value),borderColor:'#e8c547',backgroundColor:'rgba(232,197,71,.08)',fill:true,tension:.4,borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#e8c547'},
+      {label:'Capital investi',data:triData.map(d=>d.invested),borderColor:'#3b82f6',backgroundColor:'transparent',fill:false,tension:.4,borderWidth:1.5,borderDash:[5,4],pointRadius:2},
+      {label:'Gain cumulé',data:triData.map(d=>d.gain),borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,.06)',fill:true,tension:.4,borderWidth:1.5,pointRadius:2},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{labels:{color:'#a1a1aa',font:{family:'DM Mono',size:10},boxWidth:10}},tooltip:{backgroundColor:'#18181b',titleColor:'#fafafa',bodyColor:'#a1a1aa',titleFont:{family:'DM Mono'},bodyFont:{family:'DM Mono',size:10},callbacks:{label:ctx=>` ${ctx.dataset.label} : ${fmt(ctx.raw)}`}}},
+    scales:{
+      x:{grid:{color:'rgba(39,39,42,.5)'},ticks:{color:'#a1a1aa',font:{family:'DM Mono',size:9}}},
+      y:{grid:{color:'rgba(39,39,42,.5)'},ticks:{color:'#a1a1aa',font:{family:'DM Mono',size:9},callback:v=>new Intl.NumberFormat('fr-FR',{notation:'compact'}).format(v)+'€'}}
+    }
+  }
+});
+
+const tbody=document.getElementById('triTableBody');
+triData.forEach((d,i)=>{
+  const perf=(d.gain/d.invested*100).toFixed(1);
+  const isLast=i===triData.length-1;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>An ${d.yr}</td><td>${d.date}</td><td>${fmt(d.invested)}</td><td class="${isLast?'':'pos'}">${fmt(d.value)}</td><td class="pos">+${fmt(d.gain)}</td><td class="pos">+${perf}%</td>`;
+  tbody.appendChild(tr);
+});
+
+const compData=[
+  {label:'Ton PEA (TRI réel)',    pct:5.20,color:'#c084fc'},
+  {label:'MSCI World (2017-2026)',pct:10.5, color:'#3b82f6'},
+  {label:'CAC 40 + dividendes',  pct:7.8,  color:'#f59e0b'},
+  {label:'Livret A (moy.)',       pct:1.6,  color:'#6b7280'},
+];
+const compB=document.getElementById('compBars');
+const maxComp=Math.max(...compData.map(d=>d.pct));
+compData.forEach(d=>{
+  const bw=d.pct/maxComp*100;
+  const el=document.createElement('div');
+  el.className='pv-row';
+  el.style.alignItems='center';
+  el.innerHTML=`<div style="width:180px;font-size:10px;color:var(--text2)">${d.label}</div><div class="pv-track"><div class="pv-fill" style="width:${bw}%;background:${d.color}"></div></div><div class="pv-pct" style="color:${d.color}">${d.pct}%/an</div>`;
+  compB.appendChild(el);
+});
+
+// ── INTÉRÊTS COMPOSÉS ──────────────────────────────────────────
 let icChart = null;
 
-function setScenario(rate, el) {
+function setICScenario(rate, el) {
   document.getElementById('icRate').value = rate;
-  document.getElementById('icRateVal').innerHTML = rate + ' <span>%</span>';
+  document.getElementById('icRateVal').innerHTML = rate.toString().replace('.',',') + ' <span>%</span>';
+  document.querySelectorAll('.ic-scenario').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
   updateIC();
 }
 
@@ -349,61 +1147,976 @@ function updateIC() {
   const monthly = parseFloat(document.getElementById('icMonthly').value);
   const years = parseInt(document.getElementById('icYears').value);
 
-  document.getElementById('icCapitalVal').innerHTML = new Intl.NumberFormat('fr-FR').format(capital)+' <span>€</span>';
-  document.getElementById('icRateVal').innerHTML = rate+' <span>%</span>';
-  document.getElementById('icMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(monthly)+' <span>€/mois</span>';
-  document.getElementById('icYearsVal').innerHTML = years+' <span>ans</span>';
+  document.getElementById('icCapitalVal').innerHTML = new Intl.NumberFormat('fr-FR').format(capital) + ' <span>€</span>';
+  document.getElementById('icRateVal').innerHTML = rate.toString().replace('.',',') + ' <span>%</span>';
+  document.getElementById('icMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(monthly) + ' <span>€/mois</span>';
+  document.getElementById('icYearsVal').innerHTML = years + ' <span>ans</span>';
 
-  const mr = rate/100/12;
-  let portfolio = capital, totalInvested = capital, prev = capital;
-  const yearlyData = [], labels = [], portVals = [], invVals = [], intVals = [];
+  const mr = rate / 100 / 12;
+  let portfolio = capital;
+  let totalInvested = capital;
+  let prevPortfolio = capital;
+  const yearlyData = [];
 
-  for(let y=1;y<=years;y++){
-    let yearInt=0;
-    for(let m=0;m<12;m++){const i=portfolio*mr;yearInt+=i;portfolio+=i+monthly;totalInvested+=monthly;}
-    const gain=portfolio-totalInvested;
-    yearlyData.push({year:y,invested:totalInvested,portfolio,interest:gain,yearGain:portfolio-prev-monthly*12,perf:gain/totalInvested*100});
-    labels.push((2026+y).toString());
-    portVals.push(Math.round(portfolio));
-    invVals.push(Math.round(totalInvested));
-    intVals.push(Math.round(gain));
-    prev=portfolio;
+  for (let y = 1; y <= years; y++) {
+    let yearInterest = 0;
+    for (let m = 0; m < 12; m++) {
+      const interest = portfolio * mr;
+      yearInterest += interest;
+      portfolio += interest + monthly;
+      totalInvested += monthly;
+    }
+    yearlyData.push({
+      year: y,
+      invested: totalInvested,
+      portfolio: portfolio,
+      interest: portfolio - totalInvested,
+      yearGain: portfolio - prevPortfolio - monthly * 12,
+      perf: (portfolio - totalInvested) / totalInvested * 100,
+    });
+    prevPortfolio = portfolio;
   }
 
-  const last=yearlyData[yearlyData.length-1];
-  const gain=last.portfolio-last.invested;
-  document.getElementById('icFinal').textContent=fmt(Math.round(last.portfolio));
-  document.getElementById('icFinalSub').textContent='dans '+years+' ans';
-  document.getElementById('icGain').textContent='+'+fmt(Math.round(gain));
-  document.getElementById('icGainSub').textContent='+'+last.perf.toFixed(1)+'% sur capital';
-  document.getElementById('icTotalInvested').textContent=fmt(Math.round(last.invested));
-  document.getElementById('icInterest').textContent=fmt(Math.round(gain));
-  document.getElementById('icInterestSub').textContent=(gain/last.portfolio*100).toFixed(1)+'% de la valeur finale';
-  document.getElementById('icDoubling').innerHTML=`📐 <strong>Règle des 72</strong> : à <strong>${rate}%/an</strong>, ton capital double tous les <strong>${(72/rate).toFixed(1)} ans</strong>. Tes 5 551 € deviendront <strong>~${fmt(Math.round(5551*2))}</strong> vers <strong>${Math.round(2026+72/rate)}</strong>.`;
+  const last = yearlyData[yearlyData.length - 1];
+  const gain = last.portfolio - last.invested;
+  const interestPct = (gain / last.portfolio * 100).toFixed(1);
 
-  if(icChart) icChart.destroy();
-  icChart=new Chart(document.getElementById('icChart'),{
-    type:'line',
-    data:{labels,datasets:[
-      {label:'Valeur totale',data:portVals,borderColor:'#c084fc',backgroundColor:'rgba(192,132,252,.1)',fill:true,tension:.4,borderWidth:3,pointRadius:4,pointHoverRadius:7,pointBackgroundColor:'#c084fc',pointBorderColor:'#09090b',pointBorderWidth:2},
-      {label:'Capital investi',data:invVals,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.05)',fill:true,tension:.4,borderWidth:2,borderDash:[6,4],pointRadius:3,pointBackgroundColor:'#3b82f6'},
-      {label:'Intérêts composés',data:intVals,borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,.08)',fill:true,tension:.4,borderWidth:2,pointRadius:3,pointBackgroundColor:'#4ade80'},
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#e2e2e2',font:{family:'DM Mono',size:11},boxWidth:12,usePointStyle:true}},tooltip:{backgroundColor:'#18181b',borderColor:'#27272a',borderWidth:1,titleColor:'#fafafa',bodyColor:'#a1a1aa',titleFont:{family:'DM Mono',size:12},bodyFont:{family:'DM Mono',size:11},padding:12,callbacks:{label:ctx=>` ${ctx.dataset.label} : ${fmt(ctx.raw)}`}}},scales:{x:{grid:{color:'rgba(39,39,42,.4)'},ticks:{color:'#d4d4d8',font:{family:'DM Mono',size:11}}},y:{grid:{color:'rgba(39,39,42,.4)'},ticks:{color:'#d4d4d8',font:{family:'DM Mono',size:11},padding:8,callback:v=>new Intl.NumberFormat('fr-FR',{notation:'compact'}).format(v)+'€'}}}}
+  document.getElementById('icFinal').textContent = fmt(Math.round(last.portfolio));
+  document.getElementById('icFinalSub').textContent = 'dans ' + years + ' ans';
+  document.getElementById('icGain').textContent = '+' + fmt(Math.round(gain));
+  document.getElementById('icGainSub').textContent = '+' + last.perf.toFixed(1) + '% sur capital investi';
+  document.getElementById('icTotalInvested').textContent = fmt(Math.round(last.invested));
+  document.getElementById('icInterest').textContent = fmt(Math.round(gain));
+  document.getElementById('icInterestSub').textContent = interestPct + '% de la valeur finale';
+
+  // Règle du doublement (règle des 72)
+  const doublingYears = (72 / rate).toFixed(1);
+  const currentYear = 2026;
+  document.getElementById('icDoubling').innerHTML = `
+    📐 <strong>Règle des 72</strong> : à <strong>${rate}%/an</strong>, ton capital double tous les <strong>${doublingYears} ans</strong>. 
+    Tes 172 076 € deviendront <strong>~344k€</strong> vers <strong>${Math.round(currentYear + parseFloat(doublingYears))}</strong>, 
+    puis <strong>~688k€</strong> vers <strong>${Math.round(currentYear + parseFloat(doublingYears) * 2)}</strong>.
+  `;
+
+  // Graphique
+  const labels = yearlyData.map(d => (2026 + d.year).toString());
+  const portfolioVals = yearlyData.map(d => Math.round(d.portfolio));
+  const investedVals = yearlyData.map(d => Math.round(d.invested));
+  const interestVals = yearlyData.map(d => Math.round(d.interest));
+
+  if (icChart) icChart.destroy();
+  icChart = new Chart(document.getElementById('icChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Valeur totale', data: portfolioVals, borderColor: '#e8c547', backgroundColor: 'rgba(232,197,71,.12)', fill: true, tension: .4, borderWidth: 3, pointRadius: 5, pointHoverRadius: 8, pointBackgroundColor: '#e8c547', pointBorderColor: '#09090b', pointBorderWidth: 2 },
+        { label: 'Capital investi', data: investedVals, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.06)', fill: true, tension: .4, borderWidth: 2, borderDash: [6, 4], pointRadius: 4, pointHoverRadius: 7, pointBackgroundColor: '#3b82f6', pointBorderColor: '#09090b', pointBorderWidth: 2 },
+        { label: 'Intérêts composés', data: interestVals, borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,.1)', fill: true, tension: .4, borderWidth: 2.5, pointRadius: 4, pointHoverRadius: 7, pointBackgroundColor: '#4ade80', pointBorderColor: '#09090b', pointBorderWidth: 2 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'end',
+          labels: { color: '#e2e2e2', font: { family: 'DM Mono', size: 12 }, boxWidth: 14, boxHeight: 14, padding: 20, usePointStyle: true, pointStyle: 'circle' }
+        },
+        tooltip: {
+          backgroundColor: '#18181b',
+          borderColor: '#27272a',
+          borderWidth: 1,
+          titleColor: '#fafafa',
+          bodyColor: '#a1a1aa',
+          titleFont: { family: 'DM Mono', size: 13, weight: 'bold' },
+          bodyFont: { family: 'DM Mono', size: 12 },
+          padding: 14,
+          callbacks: {
+            label: ctx => `  ${ctx.dataset.label} : ${fmt(ctx.raw)}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(39,39,42,.4)', lineWidth: 1 },
+          ticks: { color: '#d4d4d8', font: { family: 'DM Mono', size: 12 }, maxRotation: 0 },
+          border: { color: 'rgba(39,39,42,.6)' }
+        },
+        y: {
+          grid: { color: 'rgba(39,39,42,.4)', lineWidth: 1 },
+          ticks: {
+            color: '#d4d4d8',
+            font: { family: 'DM Mono', size: 12 },
+            padding: 10,
+            callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact', maximumFractionDigits: 0 }).format(v) + ' €'
+          },
+          border: { color: 'rgba(39,39,42,.6)' }
+        }
+      }
+    }
   });
 
-  const tb=document.getElementById('icTableBody');
-  tb.innerHTML='';
-  yearlyData.forEach((d,i)=>{
-    const isMilestone=[5,10,15,20].includes(d.year);
-    const tr=document.createElement('tr');
-    if(isMilestone) tr.className='yr-milestone';
-    tr.innerHTML=`<td>${2026+d.year}</td><td>${fmt(Math.round(d.invested))}</td><td class="pos">${fmt(Math.round(d.portfolio))}</td><td class="pos">+${fmt(Math.round(d.interest))}</td><td class="pos">+${fmt(Math.round(d.yearGain))}</td><td class="pos">+${d.perf.toFixed(1)}%</td>`;
+  // Tableau
+  const tb = document.getElementById('icTableBody');
+  tb.innerHTML = '';
+  const milestones = [5, 10, 15, 20, 25, 30];
+  yearlyData.forEach((d, i) => {
+    const isMilestone = milestones.includes(d.year);
+    const isLast = i === yearlyData.length - 1;
+    const tr = document.createElement('tr');
+    if (isMilestone || isLast) tr.className = 'yr-milestone';
+    tr.innerHTML = `
+      <td>${2026 + d.year} <span style="color:var(--text2);font-size:9px">(an ${d.year})</span></td>
+      <td>${fmt(Math.round(d.invested))}</td>
+      <td class="${isLast ? '' : 'pos'}">${fmt(Math.round(d.portfolio))}</td>
+      <td class="pos">+${fmt(Math.round(d.interest))}</td>
+      <td class="pos">+${fmt(Math.round(d.yearGain))}</td>
+      <td class="pos">+${d.perf.toFixed(1)}%</td>
+    `;
     tb.appendChild(tr);
   });
 }
 
+['icCapital','icRate','icMonthly','icYears'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateIC);
+});
+
 updateIC();
+
+// ── SIMULATEUR DIVIDENDES ──────────────────────────────────────
+const DS_COLORS = ['#e8c547','#4ade80','#60a5fa','#f87171','#a78bfa','#f59e0b','#10b981','#3b82f6'];
+let dsLines = [], dcLines = [];
+let dsDivChart = null, dsPortChart = null, dsTargetChart = null, dcChart = null;
+let dsReinvest = true;
+
+function showDsTab(id, el) {
+  document.querySelectorAll('.ds-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ds-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('ds-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+function setDsReinvest(val) {
+  dsReinvest = val;
+  document.getElementById('dsReinvestOn').style.background = val ? 'var(--accent)' : 'transparent';
+  document.getElementById('dsReinvestOn').style.color = val ? '#09090b' : 'var(--text2)';
+  document.getElementById('dsReinvestOn').style.borderColor = val ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('dsReinvestOff').style.background = !val ? 'var(--accent3)' : 'transparent';
+  document.getElementById('dsReinvestOff').style.color = !val ? '#09090b' : 'var(--text2)';
+  document.getElementById('dsReinvestOff').style.borderColor = !val ? 'var(--accent3)' : 'var(--border)';
+  runDsSim();
+}
+
+function updateDsYearsVal() {
+  document.getElementById('dsYearsVal').innerHTML = document.getElementById('dsYears').value + ' <span>ans</span>';
+}
+
+function updateDsMonthlyVal() {
+  const v = document.getElementById('dsAddMonthly').value;
+  document.getElementById('dsMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(v) + ' <span>€/mois</span>';
+}
+
+function renderDsLines() {
+  const container = document.getElementById('dsLines');
+  container.innerHTML = '';
+  dsLines.forEach((l, i) => {
+    const el = document.createElement('div');
+    el.className = 'ds-line-row';
+    el.innerHTML = `
+      <div class="ds-line-dot" style="background:${DS_COLORS[i % DS_COLORS.length]}"></div>
+      <div style="flex:1"><strong>${l.name}</strong></div>
+      <div style="color:var(--text2)">${new Intl.NumberFormat('fr-FR').format(l.capital)} €</div>
+      <div style="color:var(--accent)">${l.yield}% rend.</div>
+      <div style="color:var(--accent2)">+${l.growth}%/an</div>
+      <button class="ds-remove" onclick="removeDsLine(${i})">✕</button>
+    `;
+    container.appendChild(el);
+  });
+  runDsSim();
+}
+
+function addDsLine() {
+  const name = document.getElementById('dsName').value.trim();
+  const capital = parseFloat(document.getElementById('dsCapital').value);
+  const yld = parseFloat(document.getElementById('dsYield').value);
+  const growth = parseFloat(document.getElementById('dsGrowth').value) || 0;
+  if (!name || !capital || !yld) return;
+  dsLines.push({ name, capital, yield: yld, growth });
+  document.getElementById('dsName').value = '';
+  document.getElementById('dsCapital').value = '';
+  document.getElementById('dsYield').value = '';
+  document.getElementById('dsGrowth').value = '';
+  renderDsLines();
+}
+
+function removeDsLine(i) { dsLines.splice(i, 1); renderDsLines(); }
+
+function prefillFromPEA() {
+  dsLines = [
+    { name: 'SEL',   capital: 1018,  yield: 5.75, growth: 3 },
+    { name: 'DCAM',  capital: 2144,  yield: 0,    growth: 0 },
+    { name: 'CAC',   capital: 1734,  yield: 2.8,  growth: 3 },
+    { name: 'GUARD', capital: 640,   yield: 0.5,  growth: 3 },
+    
+  ];
+  renderDsLines();
+}
+
+function runDsSim() {
+  if (dsLines.length === 0) return;
+  const years = parseInt(document.getElementById('dsYears').value);
+  const addMonthly = parseFloat(document.getElementById('dsAddMonthly').value) || 0;
+
+  const labels = Array.from({ length: years }, (_, i) => (2026 + i + 1).toString());
+  const datasets = [];
+  let totalDiv1 = 0, totalDivFinal = 0, totalDivCumul = 0, totalPort = 0;
+
+  dsLines.forEach((l, idx) => {
+    const color = DS_COLORS[idx % DS_COLORS.length];
+    let capital = l.capital;
+    let divRate = l.yield / 100;
+    const growth = l.growth / 100;
+    const divPerYear = [];
+    let cumul = 0;
+    // distribute monthly addition proportionally
+    const monthlyShare = dsLines.length > 0 ? addMonthly / dsLines.length : 0;
+
+    for (let y = 1; y <= years; y++) {
+      const divAmt = capital * divRate;
+      divPerYear.push(Math.round(divAmt));
+      cumul += divAmt;
+      if (dsReinvest) capital += divAmt;
+      capital += monthlyShare * 12;
+      divRate = divRate * (1 + growth);
+    }
+
+    totalDiv1 += divPerYear[0];
+    totalDivFinal += divPerYear[divPerYear.length - 1];
+    totalDivCumul += cumul;
+    totalPort += capital;
+
+    datasets.push({ label: l.name, data: divPerYear, borderColor: color, backgroundColor: color + '22', fill: true, tension: .4, borderWidth: 2, pointRadius: 3, pointBackgroundColor: color });
+  });
+
+  // KPIs
+  document.getElementById('dsDiv1').textContent = fmt(Math.round(totalDiv1));
+  document.getElementById('dsDiv1Sub').textContent = fmt(Math.round(totalDiv1 / 12)) + '/mois';
+  document.getElementById('dsDivFinal').textContent = fmt(Math.round(totalDivFinal));
+  document.getElementById('dsDivFinalSub').textContent = fmt(Math.round(totalDivFinal / 12)) + '/mois en an ' + years;
+  document.getElementById('dsDivTotal').textContent = fmt(Math.round(totalDivCumul));
+  document.getElementById('dsPortFinal').textContent = fmt(Math.round(totalPort));
+  const totalCapital = dsLines.reduce((s, l) => s + l.capital, 0) + addMonthly * 12 * years;
+  document.getElementById('dsPortFinalSub').textContent = '+' + ((totalPort - totalCapital) / totalCapital * 100).toFixed(1) + '% vs capital';
+
+  const chartOpts = {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 10 }, boxWidth: 10 } }, tooltip: { backgroundColor: '#18181b', titleColor: '#fafafa', bodyColor: '#a1a1aa', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono', size: 10 }, callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)}` } } },
+    scales: { x: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 } } }, y: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact' }).format(v) + '€' } } }
+  };
+
+  if (dsDivChart) dsDivChart.destroy();
+  dsDivChart = new Chart(document.getElementById('dsDivChart'), { type: 'line', data: { labels, datasets }, options: chartOpts });
+
+  // Portfolio chart — cumulative value
+  const portDatasets = dsLines.map((l, idx) => {
+    const color = DS_COLORS[idx % DS_COLORS.length];
+    let capital = l.capital;
+    let divRate = l.yield / 100;
+    const growth = l.growth / 100;
+    const monthlyShare = addMonthly / dsLines.length;
+    const vals = [];
+    for (let y = 1; y <= years; y++) {
+      const divAmt = capital * divRate;
+      if (dsReinvest) capital += divAmt;
+      capital += monthlyShare * 12;
+      divRate *= (1 + growth);
+      vals.push(Math.round(capital));
+    }
+    return { label: l.name, data: vals, borderColor: color, backgroundColor: 'transparent', fill: false, tension: .4, borderWidth: 2, pointRadius: 2 };
+  });
+
+  if (dsPortChart) dsPortChart.destroy();
+  dsPortChart = new Chart(document.getElementById('dsPortChart'), { type: 'line', data: { labels, datasets: portDatasets }, options: chartOpts });
+
+  // Table
+  const tb = document.getElementById('dsTable1');
+  tb.innerHTML = '';
+  const totalCapInit = dsLines.reduce((s, l) => s + l.capital, 0);
+  let cumulDiv = 0;
+  for (let y = 1; y <= years; y++) {
+    let yDiv = 0, yPort = 0;
+    dsLines.forEach(l => {
+      const divRate = (l.yield / 100) * Math.pow(1 + l.growth / 100, y - 1);
+      let cap = l.capital;
+      let dr = l.yield / 100;
+      const gr = l.growth / 100;
+      const ms = addMonthly / dsLines.length;
+      for (let i = 1; i <= y; i++) {
+        const d = cap * dr;
+        if (dsReinvest) cap += d;
+        cap += ms * 12;
+        dr *= (1 + gr);
+        if (i === y) { yDiv += d; yPort += cap; }
+      }
+    });
+    cumulDiv += yDiv;
+    const isMilestone = [5,10,15,20,25,30].includes(y);
+    const tr = document.createElement('tr');
+    if (isMilestone) tr.className = 'yr-milestone';
+    tr.innerHTML = `<td>${2026 + y}</td><td>${fmt(Math.round(yPort))}</td><td class="pos">${fmt(Math.round(yDiv))}<br><span style="font-size:9px;color:var(--text2)">${fmt(Math.round(yDiv/12))}/mois</span></td><td class="pos">+${fmt(Math.round(cumulDiv))}</td><td class="pos">${(yDiv/yPort*100).toFixed(2)}%</td>`;
+    tb.appendChild(tr);
+  }
+}
+
+// ── TAB 2 : CIBLE ──
+function updateTargetVals() {
+  const monthly = parseFloat(document.getElementById('dsTargetMonthly').value);
+  const yld = parseFloat(document.getElementById('dsTargetYield').value);
+  const growth = parseFloat(document.getElementById('dsTargetGrowth').value);
+  const addMonthly = parseFloat(document.getElementById('dsTargetMonthlyAdd').value);
+
+  document.getElementById('dsTargetMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(monthly) + ' <span>€/mois</span>';
+  document.getElementById('dsTargetYieldVal').innerHTML = yld.toFixed(2).replace('.',',') + ' <span>%</span>';
+  document.getElementById('dsTargetGrowthVal').innerHTML = growth.toFixed(1).replace('.',',') + ' <span>%</span>';
+  document.getElementById('dsTargetMonthlyAddVal').innerHTML = new Intl.NumberFormat('fr-FR').format(addMonthly) + ' <span>€/mois</span>';
+
+  const annualTarget = monthly * 12;
+  const capitalNeeded = annualTarget / (yld / 100);
+  const currentPEA = 5551;
+  const currentDiv = currentPEA * 0.0215; // ~2.15% rendement actuel
+  const gap = Math.max(0, capitalNeeded - currentPEA);
+
+  document.getElementById('dsTargetCapNow').textContent = fmt(Math.round(capitalNeeded));
+  document.getElementById('dsTargetPEACurrent').textContent = fmt(Math.round(currentDiv / 12)) + '/mois';
+  document.getElementById('dsTargetGap').textContent = gap > 0 ? fmt(Math.round(gap)) : '✅ Déjà atteint !';
+  document.getElementById('dsTargetGapSub').textContent = gap > 0 ? 'capital supplémentaire nécessaire' : 'avec rendement moyen ' + yld + '%';
+
+  // Simulate years to reach target
+  let capital = currentPEA;
+  let divRate = yld / 100;
+  let yearsNeeded = '—';
+  const targetLabels = [], targetDivLine = [], targetCapLine = [], targetGoalLine = [];
+
+  for (let y = 1; y <= 50; y++) {
+    const divAmt = capital * divRate;
+    capital += divAmt + addMonthly * 12;
+    divRate *= (1 + growth / 100);
+    targetLabels.push((2026 + y).toString());
+    targetDivLine.push(Math.round(divAmt / 12));
+    targetCapLine.push(Math.round(capital));
+    targetGoalLine.push(monthly);
+    if (divAmt / 12 >= monthly && yearsNeeded === '—') yearsNeeded = y + ' ans (en ' + (2026 + y) + ')';
+    if (y > 40 && yearsNeeded === '—') { yearsNeeded = '> 40 ans'; }
+  }
+
+  document.getElementById('dsTargetYearsNeeded').textContent = yearsNeeded;
+
+  if (dsTargetChart) dsTargetChart.destroy();
+  dsTargetChart = new Chart(document.getElementById('dsTargetChart'), {
+    type: 'line',
+    data: {
+      labels: targetLabels,
+      datasets: [
+        { label: 'Dividendes mensuels', data: targetDivLine, borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,.08)', fill: true, tension: .4, borderWidth: 2.5, pointRadius: 2 },
+        { label: 'Objectif', data: targetGoalLine, borderColor: '#e8c547', backgroundColor: 'transparent', fill: false, borderDash: [6,4], borderWidth: 2, pointRadius: 0 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 10 }, boxWidth: 10 } }, tooltip: { backgroundColor: '#18181b', titleColor: '#fafafa', bodyColor: '#a1a1aa', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono', size: 10 }, callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)}/mois` } } },
+      scales: { x: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, maxTicksLimit: 10 } }, y: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, callback: v => new Intl.NumberFormat('fr-FR').format(v) + ' €/mois' } } }
+    }
+  });
+}
+
+// ── TAB 3 : COMPARAISON ──
+function renderDcLines() {
+  const container = document.getElementById('dcLines');
+  container.innerHTML = '';
+  dcLines.forEach((l, i) => {
+    const el = document.createElement('div');
+    el.className = 'ds-line-row';
+    el.innerHTML = `<div class="ds-line-dot" style="background:${DS_COLORS[i % DS_COLORS.length]}"></div><div style="flex:1"><strong>${l.name}</strong></div><div style="color:var(--text2)">${new Intl.NumberFormat('fr-FR').format(l.capital)} €</div><div style="color:var(--accent)">${l.yield}%</div><div style="color:var(--accent2)">+${l.growth}%/an</div><div style="color:var(--text2)">${l.years} ans</div><button class="ds-remove" onclick="removeDcLine(${i})">✕</button>`;
+    container.appendChild(el);
+  });
+  runDcSim();
+}
+
+function addDcLine() {
+  const name = document.getElementById('dcName').value.trim();
+  const capital = parseFloat(document.getElementById('dcCapital').value);
+  const yld = parseFloat(document.getElementById('dcYield').value);
+  const growth = parseFloat(document.getElementById('dcGrowth').value) || 0;
+  const years = parseInt(document.getElementById('dcYears').value) || 10;
+  if (!name || !capital || !yld) return;
+  if (dcLines.length >= 5) { alert('Maximum 5 lignes'); return; }
+  dcLines.push({ name, capital, yield: yld, growth, years });
+  document.getElementById('dcName').value = '';
+  renderDcLines();
+}
+
+function removeDcLine(i) { dcLines.splice(i, 1); renderDcLines(); }
+
+function runDcSim() {
+  if (dcLines.length === 0) return;
+  const maxYears = Math.max(...dcLines.map(l => l.years));
+  const labels = Array.from({ length: maxYears }, (_, i) => (2026 + i + 1).toString());
+
+  const datasets = dcLines.map((l, idx) => {
+    const color = DS_COLORS[idx % DS_COLORS.length];
+    let cumul = 0;
+    let capital = l.capital;
+    let divRate = l.yield / 100;
+    const growth = l.growth / 100;
+    const data = [];
+    for (let y = 1; y <= maxYears; y++) {
+      if (y <= l.years) {
+        const div = capital * divRate;
+        cumul += div;
+        capital += div;
+        divRate *= (1 + growth);
+      }
+      data.push(Math.round(cumul));
+    }
+    return { label: l.name, data, borderColor: color, backgroundColor: color + '15', fill: true, tension: .4, borderWidth: 2.5, pointRadius: 2 };
+  });
+
+  if (dcChart) dcChart.destroy();
+  dcChart = new Chart(document.getElementById('dcChart'), {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 10 }, boxWidth: 10 } }, tooltip: { backgroundColor: '#18181b', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono', size: 10 }, callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)} cumulés` } } },
+      scales: { x: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 } } }, y: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact' }).format(v) + '€' } } }
+    }
+  });
+
+  // Table comparatif
+  const tb = document.getElementById('dcTable');
+  tb.innerHTML = '';
+  const results = dcLines.map((l, idx) => {
+    let capital = l.capital;
+    let divRate = l.yield / 100;
+    const growth = l.growth / 100;
+    let div1 = capital * divRate;
+    let divFinal = 0, cumul = 0;
+    for (let y = 1; y <= l.years; y++) {
+      const div = capital * divRate;
+      cumul += div;
+      capital += div;
+      divRate *= (1 + growth);
+      if (y === l.years) divFinal = div;
+    }
+    return { ...l, div1, divFinal, cumul, idx };
+  });
+  const bestCumul = Math.max(...results.map(r => r.cumul));
+  results.forEach(r => {
+    const isBest = r.cumul === bestCumul;
+    const tr = document.createElement('tr');
+    if (isBest) tr.className = 'yr-milestone';
+    tr.innerHTML = `
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${DS_COLORS[r.idx % DS_COLORS.length]};margin-right:6px"></span>${r.name}</td>
+      <td>${fmt(r.capital)}</td>
+      <td>${r.yield}% (+${r.growth}%/an)</td>
+      <td class="pos">${fmt(Math.round(r.div1))}</td>
+      <td class="pos">${fmt(Math.round(r.divFinal))}</td>
+      <td class="pos">${fmt(Math.round(r.cumul))}</td>
+      <td>${isBest ? '🏆' : ''}</td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+
+['dsTargetMonthly','dsTargetYield','dsTargetGrowth','dsTargetMonthlyAdd'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateTargetVals);
+});
+updateTargetVals();
+
+// ── RESTE À INVESTIR ──────────────────────────────────────────
+const INVESTI = 5400;
+const TRI_MENSUEL = Math.pow(1 + 0.0912, 1/12) - 1;
+let resteChart = null;
+
+function updateReste() {
+  const objectif = 15000;
+  const monthly = parseFloat(document.getElementById('resteMonthly').value);
+  const reste = Math.max(0, objectif - INVESTI);
+  const pctFait = (INVESTI / objectif * 100).toFixed(1);
+  const pctReste = (reste / objectif * 100).toFixed(1);
+
+  // Update labels
+  document.getElementById('resteMonthlyVal').innerHTML = new Intl.NumberFormat('fr-FR').format(monthly) + ' <span>€/mois</span>';
+  document.getElementById('resteHero').textContent = new Intl.NumberFormat('fr-FR').format(reste) + ' €';
+  document.getElementById('resteKpiReste').textContent = fmt(reste);
+  document.getElementById('resteKpiRestePct').textContent = pctReste + '% restants';
+  document.getElementById('resteDejaSubPct').textContent = pctFait + '% de l\'objectif';
+  document.getElementById('resteProgLabel').textContent = `${new Intl.NumberFormat('fr-FR').format(INVESTI)} € / ${new Intl.NumberFormat('fr-FR').format(objectif)} €`;
+  document.getElementById('resteObjectifLabel').textContent = new Intl.NumberFormat('fr-FR').format(objectif) + ' €';
+  document.getElementById('resteBar').style.width = Math.min(100, parseFloat(pctFait)) + '%';
+  document.getElementById('resteBarPct').textContent = pctFait + '%';
+  document.getElementById('resteBarRemain').textContent = 'Reste : ' + fmt(reste);
+
+  // Temps estimé
+  let mois = 0, valeurFuture = 188501;
+  if (monthly > 0) {
+    mois = Math.ceil(reste / monthly);
+    // Simulate PEA value at target date with TRI
+    for (let m = 0; m < mois; m++) {
+      valeurFuture = valeurFuture * (1 + TRI_MENSUEL) + monthly;
+    }
+  } else {
+    mois = null;
+  }
+
+  if (mois !== null) {
+    const now = new Date(2026, 5, 8); // June 8 2026
+    const targetDate = new Date(now.setMonth(now.getMonth() + mois));
+    const moisNom = targetDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    document.getElementById('resteTemps').textContent = mois + ' mois';
+    document.getElementById('resteTempsDate').textContent = 'Atteint en ' + moisNom;
+  } else {
+    document.getElementById('resteTemps').textContent = '—';
+    document.getElementById('resteTempsDate').textContent = 'Définir un versement';
+  }
+
+  document.getElementById('resteValeurFuture').textContent = fmt(Math.round(valeurFuture));
+
+  // Jalons
+  const jalonsData = [
+    { label: '25%', target: objectif * 0.25 },
+    { label: '50%', target: objectif * 0.5 },
+    { label: '75%', target: objectif * 0.75 },
+    { label: '100%', target: objectif },
+  ];
+  const jalonsContainer = document.getElementById('resteJalons');
+  jalonsContainer.innerHTML = '';
+  jalonsData.forEach(j => {
+    const done = INVESTI >= j.target;
+    const pct = Math.min(100, INVESTI / j.target * 100).toFixed(0);
+    const moisRestant = monthly > 0 ? Math.max(0, Math.ceil((j.target - INVESTI) / monthly)) : null;
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface2);border-radius:8px';
+    el.innerHTML = `
+      <div style="font-size:18px">${done ? '✅' : '⏳'}</div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:${done ? 'var(--accent2)' : 'var(--text)'}">Objectif ${j.label} — ${fmt(j.target)}</div>
+        <div style="height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:${done ? 'var(--accent2)' : 'var(--accent)'};border-radius:2px"></div>
+        </div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:var(--text2)">
+        ${done ? '<span style="color:var(--accent2)">Atteint ✓</span>' : moisRestant !== null ? `Dans ${moisRestant} mois` : '—'}
+      </div>
+    `;
+    jalonsContainer.appendChild(el);
+  });
+
+  // Graphique
+  const maxMois = mois !== null ? Math.max(mois + 6, 12) : 36;
+  const chartLabels = [], investiLine = [], objectifLine = [];
+  for (let m = 0; m <= maxMois; m++) {
+    const now = new Date(2026, 5, 8);
+    now.setMonth(now.getMonth() + m);
+    if (m % 3 === 0 || m === maxMois) chartLabels.push(now.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' }));
+    else chartLabels.push('');
+    investiLine.push(Math.min(INVESTI + monthly * m, objectif));
+    objectifLine.push(objectif);
+  }
+
+  if (resteChart) resteChart.destroy();
+  resteChart = new Chart(document.getElementById('resteChart'), {
+    type: 'line',
+    data: {
+      labels: chartLabels,
+      datasets: [
+        { label: 'Capital versé cumulé', data: investiLine, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.1)', fill: true, tension: .3, borderWidth: 2.5, pointRadius: 0 },
+        { label: 'Objectif', data: objectifLine, borderColor: '#e8c547', backgroundColor: 'transparent', fill: false, borderDash: [6,4], borderWidth: 2, pointRadius: 0 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 11 }, boxWidth: 10 } },
+        tooltip: { backgroundColor: '#18181b', titleColor: '#fafafa', bodyColor: '#a1a1aa', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono', size: 10 }, callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)}` } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(39,39,42,.4)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 } } },
+        y: { grid: { color: 'rgba(39,39,42,.4)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact' }).format(v) + '€' } }
+      }
+    }
+  });
+}
+
+updateReste();
+
+// ── FISCALITÉ ──────────────────────────────────────────────────
+const CAPITAL_INVESTI = 5400;
+const VALEUR_PEA = 5551;
+let fiscChart = null;
+
+function updateFisc() {
+  const taux = parseFloat(document.getElementById('fiscTaux').value);
+  const retrait = parseFloat(document.getElementById('fiscRetrait').value);
+
+  document.getElementById('fiscTauxVal').innerHTML = taux.toFixed(1).replace('.',',') + ' <span>%</span>';
+  document.getElementById('fiscRetraitVal').innerHTML = new Intl.NumberFormat('fr-FR').format(retrait) + ' <span>€</span>';
+
+  // Calcul PV proportionnelle au retrait
+  const pvTotale = VALEUR_PEA - CAPITAL_INVESTI;
+  const ratioRetrait = retrait / VALEUR_PEA;
+  const pvRetirée = pvTotale * ratioRetrait;
+  const capitalRetiré = retrait - pvRetirée;
+
+  // Impôts PEA
+  const impotsPEA = pvRetirée * (taux / 100);
+  const netPEA = retrait - impotsPEA;
+
+  // Impôts flat tax (compte-titres)
+  const impotsFlat = pvRetirée * 0.30;
+  const netFlat = retrait - impotsFlat;
+  const economie = impotsFlat - impotsPEA;
+
+  // Hero
+  document.getElementById('fiscHero').textContent = fmt(Math.round(netPEA));
+  document.getElementById('fiscHero2').textContent = fmt(Math.round(netPEA));
+  const pvNette = netPEA - CAPITAL_INVESTI;
+  document.getElementById('fiscPvNette').textContent = '+' + fmt(Math.round(pvNette));
+
+  // KPIs
+  document.getElementById('fiscBrut').textContent = fmt(Math.round(retrait));
+  document.getElementById('fiscImpots').textContent = '-' + fmt(Math.round(impotsPEA));
+  document.getElementById('fiscImpotsDetail').textContent = taux + '% × ' + fmt(Math.round(pvRetirée)) + ' de PV';
+  document.getElementById('fiscEconomieKpi').textContent = '+' + fmt(Math.round(economie));
+  document.getElementById('fiscEconomieKpi').style.color = 'var(--accent2)';
+  document.getElementById('fiscEconomie').textContent = fmt(Math.round(economie));
+  document.getElementById('fiscNet').textContent = fmt(Math.round(netPEA));
+  document.getElementById('fiscNetDetail').textContent = (netPEA / retrait * 100).toFixed(1) + '% du retrait brut';
+
+  // Graphique comparatif
+  const labels = ['Capital récupéré', 'Impôts PEA (18,6%)', 'Impôts flat tax (30%)', 'Économie réalisée'];
+  if (fiscChart) fiscChart.destroy();
+  fiscChart = new Chart(document.getElementById('fiscChart'), {
+    type: 'bar',
+    data: {
+      labels: ['PEA (18,6% PS)', 'Compte-titres (flat tax 30%)'],
+      datasets: [
+        {
+          label: 'Capital récupéré net',
+          data: [Math.round(netPEA), Math.round(netFlat)],
+          backgroundColor: ['rgba(74,222,128,.7)', 'rgba(248,113,113,.5)'],
+          borderColor: ['#4ade80', '#f87171'],
+          borderWidth: 2,
+          borderRadius: 6,
+        },
+        {
+          label: 'Impôts payés',
+          data: [Math.round(impotsPEA), Math.round(impotsFlat)],
+          backgroundColor: ['rgba(248,113,113,.4)', 'rgba(248,113,113,.7)'],
+          borderColor: ['#f87171', '#f87171'],
+          borderWidth: 2,
+          borderRadius: 6,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 11 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#18181b', titleColor: '#fafafa', bodyColor: '#a1a1aa',
+          titleFont: { family: 'DM Mono', size: 12 }, bodyFont: { family: 'DM Mono', size: 11 }, padding: 12,
+          callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)}` }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { color: 'rgba(39,39,42,.4)' }, ticks: { color: '#d4d4d8', font: { family: 'DM Mono', size: 12 } } },
+        y: { stacked: true, grid: { color: 'rgba(39,39,42,.4)' }, ticks: { color: '#d4d4d8', font: { family: 'DM Mono', size: 11 }, callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact' }).format(v) + '€' } }
+      }
+    }
+  });
+
+  // Tableau retraits progressifs
+  const tb = document.getElementById('fiscTable');
+  tb.innerHTML = '';
+  const paliers = [10000, 25000, 50000, 75000, 100000, 125000, 150000, 188501];
+  paliers.forEach(r => {
+    const ratio = r / VALEUR_PEA;
+    const pv = pvTotale * ratio;
+    const ps = pv * (taux / 100);
+    const flat = pv * 0.30;
+    const eco = flat - ps;
+    const net = r - ps;
+    const isCurrent = r === 188501;
+    const tr = document.createElement('tr');
+    if (isCurrent) tr.className = 'yr-milestone';
+    tr.innerHTML = `
+      <td>${isCurrent ? '🔴 Tout retirer' : fmt(r)}</td>
+      <td style="color:var(--text2)">${fmt(Math.round(pv))}</td>
+      <td class="neg">-${fmt(Math.round(ps))}</td>
+      <td class="pos">+${fmt(Math.round(eco))}</td>
+      <td class="pos">${fmt(Math.round(net))}</td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+
+document.getElementById('fiscTaux').addEventListener('input', updateFisc);
+document.getElementById('fiscRetrait').addEventListener('input', updateFisc);
+updateFisc();
+
+// ── MONTE CARLO ──────────────────────────────────────────────────
+let mcFanChart = null, mcDistChartObj = null;
+
+// Box-Muller transform for normal distribution
+function randNormal(mean, std) {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return mean + std * Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+function runMonteCarlo() {
+  const capital  = parseFloat(document.getElementById('mcCapital').value);
+  const monthly  = parseFloat(document.getElementById('mcMonthly').value);
+  const meanAnn  = parseFloat(document.getElementById('mcMean').value) / 100;
+  const volAnn   = parseFloat(document.getElementById('mcVol').value) / 100;
+  const years    = parseInt(document.getElementById('mcYears').value);
+  const nSims    = parseInt(document.getElementById('mcSims').value);
+
+  const months   = years * 12;
+  const meanMon  = meanAnn / 12;
+  const volMon   = volAnn / Math.sqrt(12);
+  const totalInv = capital + monthly * months;
+
+  document.getElementById('mcRunBtn').style.opacity = '0.6';
+  document.getElementById('mcRunBtn').textContent = '⏳ Simulation en cours...';
+
+  setTimeout(() => {
+    // Run simulations
+    const finalValues = [];
+    // Store percentile paths (P10, P25, P50, P75, P90)
+    const allPaths = [];
+
+    for (let s = 0; s < nSims; s++) {
+      let portfolio = capital;
+      const path = [capital];
+      for (let m = 0; m < months; m++) {
+        const r = randNormal(meanMon, volMon);
+        portfolio = portfolio * (1 + r) + monthly;
+        if ((m + 1) % 12 === 0) path.push(portfolio);
+      }
+      finalValues.push(portfolio);
+      allPaths.push(path);
+    }
+
+    finalValues.sort((a, b) => a - b);
+
+    const pct = (p) => finalValues[Math.floor(p / 100 * nSims)];
+    const p10 = pct(10), p25 = pct(25), p50 = pct(50), p75 = pct(75), p90 = pct(90);
+    const probPos = finalValues.filter(v => v > totalInv).length / nSims * 100;
+
+    // Update KPIs
+    document.getElementById('mcP50').textContent = fmt(Math.round(p50));
+    document.getElementById('mcP90').textContent = fmt(Math.round(p90));
+    document.getElementById('mcP10').textContent = fmt(Math.round(p10));
+    document.getElementById('mcProbPos').textContent = probPos.toFixed(1) + '%';
+
+    // Show cards
+    ['mcKpis','mcChartCard','mcDistCard','mcTableCard'].forEach(id => {
+      document.getElementById(id).style.display = '';
+    });
+
+    // Fan chart data — sample paths by percentile buckets
+    const labels = Array.from({length: years + 1}, (_, i) => (2026 + i).toString());
+
+    // Build percentile paths year by year
+    const yearlyPercentiles = { p10:[], p25:[], p50:[], p75:[], p90:[] };
+    for (let y = 0; y <= years; y++) {
+      const vals = allPaths.map(p => p[y]).sort((a,b) => a-b);
+      const yp = (p) => vals[Math.max(0, Math.floor(p/100*vals.length)-1)];
+      yearlyPercentiles.p10.push(Math.round(yp(10)));
+      yearlyPercentiles.p25.push(Math.round(yp(25)));
+      yearlyPercentiles.p50.push(Math.round(yp(50)));
+      yearlyPercentiles.p75.push(Math.round(yp(75)));
+      yearlyPercentiles.p90.push(Math.round(yp(90)));
+    }
+
+    const investedLine = Array.from({length: years + 1}, (_, i) => Math.round(capital + monthly * 12 * i));
+
+    if (mcFanChart) mcFanChart.destroy();
+    mcFanChart = new Chart(document.getElementById('mcChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'P90 (optimiste)', data: yearlyPercentiles.p90, borderColor: '#e8c547', backgroundColor: 'rgba(232,197,71,.08)', fill: '+1', tension: .4, borderWidth: 1.5, pointRadius: 0 },
+          { label: 'P75', data: yearlyPercentiles.p75, borderColor: 'rgba(74,222,128,.6)', backgroundColor: 'rgba(74,222,128,.08)', fill: '+1', tension: .4, borderWidth: 1, pointRadius: 0 },
+          { label: 'P50 (médiane)', data: yearlyPercentiles.p50, borderColor: '#4ade80', backgroundColor: 'transparent', fill: false, tension: .4, borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: '#4ade80' },
+          { label: 'P25', data: yearlyPercentiles.p25, borderColor: 'rgba(248,113,113,.5)', backgroundColor: 'rgba(248,113,113,.06)', fill: '+1', tension: .4, borderWidth: 1, pointRadius: 0 },
+          { label: 'P10 (pessimiste)', data: yearlyPercentiles.p10, borderColor: '#f87171', backgroundColor: 'rgba(248,113,113,.08)', fill: false, tension: .4, borderWidth: 1.5, pointRadius: 0 },
+          { label: 'Capital investi', data: investedLine, borderColor: '#3b82f6', backgroundColor: 'transparent', fill: false, tension: 0, borderWidth: 1.5, borderDash: [5,4], pointRadius: 0 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: '#a1a1aa', font: { family: 'DM Mono', size: 10 }, boxWidth: 10, filter: (item) => ['P90 (optimiste)','P50 (médiane)','P10 (pessimiste)','Capital investi'].includes(item.text) } },
+          tooltip: { backgroundColor: '#18181b', titleColor: '#fafafa', bodyColor: '#a1a1aa', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono', size: 10 }, callbacks: { label: ctx => ` ${ctx.dataset.label} : ${fmt(ctx.raw)}` } }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 } } },
+          y: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 }, callback: v => new Intl.NumberFormat('fr-FR', { notation: 'compact' }).format(v) + '€' } }
+        }
+      }
+    });
+
+    // Distribution histogram
+    const buckets = 40;
+    const minV = finalValues[0], maxV = finalValues[finalValues.length - 1];
+    const step = (maxV - minV) / buckets;
+    const histCounts = Array(buckets).fill(0);
+    const histColors = [];
+    finalValues.forEach(v => {
+      const idx = Math.min(Math.floor((v - minV) / step), buckets - 1);
+      histCounts[idx]++;
+    });
+    const histLabels = Array.from({length: buckets}, (_, i) => fmt(Math.round(minV + i * step)));
+    for (let i = 0; i < buckets; i++) {
+      const v = minV + i * step;
+      if (v < p10) histColors.push('rgba(248,113,113,.7)');
+      else if (v < p50) histColors.push('rgba(74,222,128,.4)');
+      else if (v < p90) histColors.push('rgba(74,222,128,.7)');
+      else histColors.push('rgba(232,197,71,.8)');
+    }
+
+    if (mcDistChartObj) mcDistChartObj.destroy();
+    mcDistChartObj = new Chart(document.getElementById('mcDistChart'), {
+      type: 'bar',
+      data: { labels: histLabels, datasets: [{ label: 'Fréquence', data: histCounts, backgroundColor: histColors, borderWidth: 0, borderRadius: 2 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw} scénarios` } } },
+        scales: {
+          x: { display: false },
+          y: { grid: { color: 'rgba(39,39,42,.5)' }, ticks: { color: '#a1a1aa', font: { family: 'DM Mono', size: 9 } } }
+        }
+      }
+    });
+
+    // Percentile table
+    const tableData = [
+      { p: 5,  val: pct(5),  label: 'Scénario très défavorable', color: '#f87171' },
+      { p: 10, val: p10,     label: 'Scénario pessimiste',        color: '#f87171' },
+      { p: 25, val: p25,     label: 'Scénario conservateur',      color: '#a1a1aa' },
+      { p: 50, val: p50,     label: 'Scénario médian (le plus probable)', color: '#4ade80' },
+      { p: 75, val: p75,     label: 'Scénario favorable',         color: '#4ade80' },
+      { p: 90, val: p90,     label: 'Scénario optimiste',         color: '#e8c547' },
+      { p: 95, val: pct(95), label: 'Scénario très favorable',    color: '#e8c547' },
+    ];
+
+    const tb = document.getElementById('mcTableBody');
+    tb.innerHTML = '';
+    tableData.forEach(d => {
+      const gain = d.val - totalInv;
+      const perf = (gain / totalInv * 100).toFixed(1);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="color:${d.color}">P${d.p}</td>
+        <td style="font-family:'Cormorant Garamond',serif;font-size:17px">${fmt(Math.round(d.val))}</td>
+        <td class="${gain >= 0 ? 'pos' : 'neg'}">${gain >= 0 ? '+' : ''}${fmt(Math.round(gain))}</td>
+        <td class="${gain >= 0 ? 'pos' : 'neg'}">${gain >= 0 ? '+' : ''}${perf}%</td>
+        <td style="font-size:10px;color:var(--text2)">${d.label}</td>
+      `;
+      tb.appendChild(tr);
+    });
+
+    document.getElementById('mcRunBtn').style.opacity = '1';
+    document.getElementById('mcRunBtn').textContent = '🎲 Relancer la simulation';
+    document.getElementById('mcSimCount').textContent = new Intl.NumberFormat('fr-FR').format(nSims);
+  }, 50);
+}
+
+['mcCapital','mcMonthly','mcMean','mcVol','mcYears','mcSims'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    const val = parseFloat(document.getElementById(id).value);
+    const labels = { mcCapital: ['€','mcCapitalVal'], mcMonthly: ['€/mois','mcMonthlyVal'], mcMean: ['%','mcMeanVal'], mcVol: ['%','mcVolVal'], mcYears: ['ans','mcYearsVal'], mcSims: ['sim.','mcSimsVal'] };
+    const [unit, elId] = labels[id];
+    document.getElementById(elId).innerHTML = new Intl.NumberFormat('fr-FR').format(val).replace('.',',') + ` <span>${unit}</span>`;
+  });
+});
+
+// ── TIMELINE ──────────────────────────────────────────────────
+const tlEvo=document.getElementById('tlEvo');
+snapshots.forEach((s,i)=>{
+  const prev=i>0?snapshots[i-1].total:null;
+  const delta=prev?s.total-prev:0;
+  const el=document.createElement('div');
+  el.className='tl-point'+(i===5?' active':'');
+  el.innerHTML=`<div class="tl-point-date">${s.date.split(' ').slice(0,2).join(' ')}</div><div class="tl-point-val">${fmt(s.total)}</div>${prev?`<div class="tl-point-delta" style="color:${delta>=0?'var(--accent2)':'var(--accent3)'}">${fmtD(delta)}</div>`:'<div class="tl-point-delta" style="color:var(--text2)">base</div>'}`;
+  el.onclick=()=>{document.getElementById('tlSlider').value=i;renderTL(i);};
+  tlEvo.appendChild(el);
+});
+
+const tlDots=document.getElementById('tlDots');
+snapshots.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className='tl-dot'+(i===5?' active':'');
+  el.innerHTML=`<div class="tl-dot-circle"></div><div class="tl-dot-label">${s.date.split(' ')[0]} ${s.date.split(' ')[1]}</div>`;
+  el.onclick=()=>{document.getElementById('tlSlider').value=i;renderTL(i);};
+  tlDots.appendChild(el);
+});
+
+let tlChart=null;
+function renderTL(idx){
+  const snap=snapshots[idx];const prev=idx>0?snapshots[idx-1]:null;
+  document.querySelectorAll('.tl-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tl-point').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  document.getElementById('tlDate').textContent=snap.date;
+  const dt=prev?snap.total-prev.total:0;
+  document.getElementById('tlTotal').innerHTML=`Valeur : <strong style="color:var(--text);font-size:16px">${fmt(snap.total)}</strong>${prev?` <span style="color:${dt>=0?'var(--accent2)':'var(--accent3)'}">${fmtD(dt)} vs ${prev.date}</span>`:''}`;
+  if(tlChart) tlChart.destroy();
+  tlChart=new Chart(document.getElementById('tlDonut'),{type:'doughnut',data:{labels:snap.lines.map(l=>l.ticker),datasets:[{data:snap.lines.map(l=>l.value),backgroundColor:snap.lines.map(l=>COLORS[l.ticker]||'#6b7280'),borderColor:'#111113',borderWidth:3,hoverOffset:10}]},options:{responsive:true,cutout:'60%',animation:{animateRotate:true,duration:500},plugins:{legend:{display:false},tooltip:{backgroundColor:'#18181b',titleFont:{family:'DM Mono',size:10},bodyFont:{family:'DM Mono',size:10},callbacks:{label:ctx=>{const l=snap.lines[ctx.dataIndex];const pct=(l.value/snap.total*100).toFixed(1);return[` ${fmt(l.value)}`,` ${pct}%`];}}}}}});
+  const dr=document.getElementById('tlDeltaRows');const dt2=document.getElementById('tlDeltaTitle');
+  dr.innerHTML='';
+  if(prev){
+    dt2.textContent=`Variation vs ${prev.date}`;
+    const allT=[...new Set([...prev.lines.map(l=>l.ticker),...snap.lines.map(l=>l.ticker)])];
+    const deltas=allT.map(t=>({ticker:t,delta:(snap.lines.find(l=>l.ticker===t)?.value||0)-(prev.lines.find(l=>l.ticker===t)?.value||0)}));
+    const maxD=Math.max(...deltas.map(d=>Math.abs(d.delta)));
+    deltas.forEach(({ticker,delta})=>{
+      const isPos=delta>=0;const bw=maxD>0?Math.abs(delta)/maxD*100:0;
+      const el=document.createElement('div');el.className='delta-row';
+      el.innerHTML=`<div class="delta-ticker">${ticker}</div><div class="delta-track"><div class="delta-fill" style="width:${bw}%;background:${isPos?'var(--accent2)':'var(--accent3)'}"></div></div><div class="delta-amount" style="color:${isPos?'var(--accent2)':'var(--accent3)'}">${fmtD(delta)}</div>`;
+      dr.appendChild(el);
+    });
+  } else {dt2.textContent='Première date';dr.innerHTML='<div style="font-size:11px;color:var(--text2)">Sélectionne une date suivante.</div>';}
+}
+document.getElementById('tlSlider').addEventListener('input',e=>renderTL(parseInt(e.target.value)));
+renderTL(5);
+
+// ── DIVIDENDS ──────────────────────────────────────────────────
+const dg=document.getElementById('divGrid');
+const maxDiv=Math.max(...Object.values(divMonths));
+Object.entries(divMonths).forEach(([m,amt])=>{
+  const el=document.createElement('div');el.className='div-month';
+  const h=Math.max(4,amt/maxDiv*60);
+  el.innerHTML=`<div class="div-month-name">${m}</div><div class="div-bar${amt>0?' active':''}" style="height:${h}px"></div>${amt>0?`<div class="div-amount">${amt>100?Math.round(amt/1000)+'k':amt}€</div>`:''}`;
+  dg.appendChild(el);
+});
+const dl=document.getElementById('divList');
+dividends.forEach(d=>{
+  const el=document.createElement('div');el.className='div-item';
+  el.innerHTML=`<div class="div-date">${d.date}</div><div class="div-source">${d.source}</div><div class="div-amt">${fmt(d.amount)}</div><div class="div-badge${d.confirmed?' confirmed':''}">${d.confirmed?'✅ Confirmé':'Estimé'}</div>`;
+  dl.appendChild(el);
+});
+
+
 </script>
 </body>
 </html>
